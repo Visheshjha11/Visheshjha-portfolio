@@ -4,8 +4,8 @@ import LoadingScreen from "./components/LoadingScreen";
 import CustomCursor from "./components/CustomCursor";
 import { motion, AnimatePresence } from "motion/react";
 
-import Home from "./pages/home";
-import CaseStudy from "./pages/caseStudy";
+import Home from "./pages/Home";
+import CaseStudy from "./pages/CaseStudy";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
