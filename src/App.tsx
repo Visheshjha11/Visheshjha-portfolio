@@ -15,7 +15,7 @@ export default function App() {
     <main className="selection:bg-grit-900 selection:text-white relative cursor-none">
       <CustomCursor />
       <div className="noise-overlay" />
-      
+          
       <AnimatePresence>
         {loading ? (
           <motion.div 

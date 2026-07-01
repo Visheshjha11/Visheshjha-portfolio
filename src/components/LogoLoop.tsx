@@ -39,9 +39,9 @@ const useImageLoader = (seqRef: React.RefObject<any>, onLoad: () => void, logos:
       remainingImages -= 1;
       if (remainingImages === 0) onLoad();
     };
-    images.forEach(im => {
-      const htmlImg = img as HTMLImageElement;
-      if (htmlImg.complete) {
+    images.forEach((img: any) => {
+        const htmlImg = img as HTMLImageElement;
+  if (htmlImg.complete) {
         handleImageLoad();
       } else {
         htmlImg.addEventListener('load', handleImageLoad, { once: true });
@@ -49,7 +49,7 @@ const useImageLoader = (seqRef: React.RefObject<any>, onLoad: () => void, logos:
       }
     });
     return () => {
-      images.forEach(img => {
+      images.forEach((img: any) => {
         img.removeEventListener('load', handleImageLoad);
         img.removeEventListener('error', handleImageLoad);
       });
