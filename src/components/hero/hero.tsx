@@ -12,6 +12,8 @@ export default function Hero() {
           waveColor={[0.85, 0.85, 0.85]}
           disableAnimation={false}
           enableMouseInteraction={true}
+
+          
           mouseRadius={0.3}
           colorNum={3}
           waveAmplitude={0.25}
