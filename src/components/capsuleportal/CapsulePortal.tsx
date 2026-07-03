@@ -107,12 +107,8 @@ export default function CapsulePortal() {
     // Hide capsule layer until we measure and position it correctly
     gsap.set(capsuleLayer, { visibility: "hidden" });
 
-    let mm: gsap.MatchMedia;
-
-    // Delay setup until Motion entry animations finish (longest is ~1.5s delay + 1.1s duration)
-    // This ensures the capsule placeholder is at its final layout position when we measure
-    const timer = setTimeout(() => {
-      mm = gsap.matchMedia();
+    // Initialize MatchMedia immediately so scroll animation starts without delay
+    const mm = gsap.matchMedia();
 
       // ════════════════════════════════════════════
       //  DESKTOP (≥ 768px)
@@ -191,13 +187,13 @@ export default function CapsulePortal() {
               capsuleLayer.style.clipPath = `inset(${clip.top}px ${clip.right}px ${clip.bottom}px ${clip.left}px round ${clip.radius}px)`;
             },
           },
-          0.1
+          0
         );
 
         // ── Phase 2b: Typography departs ──
-        tl.fromTo(desktopLine1Ref.current, { y: "0%", opacity: 1 }, { y: "-150%", opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0.1);
-        tl.fromTo(desktopThatRef.current, { x: "0vw", opacity: 1 }, { x: "-50vw", opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0.1);
-        tl.fromTo(desktopWorkRef.current, { x: "0vw", opacity: 1 }, { x: "50vw", opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0.1);
+        tl.fromTo(desktopLine1Ref.current, { y: "0%", opacity: 1 }, { y: "-150%", opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0);
+        tl.fromTo(desktopThatRef.current, { x: "0vw", opacity: 1 }, { x: "-50vw", opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0);
+        tl.fromTo(desktopWorkRef.current, { x: "0vw", opacity: 1 }, { x: "50vw", opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0);
 
         // ── Phase 3: Combined Cinematic Metrics ──
         const metricRefs = [metric1Ref, metric2Ref, metric3Ref];
@@ -285,13 +281,13 @@ export default function CapsulePortal() {
               capsuleLayer.style.clipPath = `inset(${clip.top}px ${clip.right}px ${clip.bottom}px ${clip.left}px round ${clip.radius}px)`;
             },
           },
-          0.1
+          0
         );
 
         // Mobile headline lines separate
-        tl.fromTo([mobileLine1Ref.current, mobileLine2Ref.current].filter(Boolean), { y: "0%", opacity: 1 }, { y: "-120%", opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0.1);
-        tl.fromTo(mobileThatRef.current, { x: "0vw", opacity: 1 }, { x: "-40vw", opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0.1);
-        tl.fromTo(mobileWorkRef.current, { x: "0vw", opacity: 1 }, { x: "40vw", opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0.1);
+        tl.fromTo([mobileLine1Ref.current, mobileLine2Ref.current].filter(Boolean), { y: "0%", opacity: 1 }, { y: "-120%", opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0);
+        tl.fromTo(mobileThatRef.current, { x: "0vw", opacity: 1 }, { x: "-40vw", opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0);
+        tl.fromTo(mobileWorkRef.current, { x: "0vw", opacity: 1 }, { x: "40vw", opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0);
 
         // Combined cinematic metrics
         const metricRefs = [metric1Ref, metric2Ref, metric3Ref];
@@ -306,10 +302,8 @@ export default function CapsulePortal() {
 
         return () => tl.kill();
       });
-    }, 1800);
 
     return () => {
-      clearTimeout(timer);
       if (mm) mm.revert();
     };
   }, [measureCapsule]);
@@ -383,6 +377,7 @@ export default function CapsulePortal() {
                 <span
                   ref={mobilePlaceholderRef}
                   className="hero-capsule-placeholder"
+                  style={{ background: "transparent" }}
                 />
                 <span ref={mobileWorkRef} className="hero-headline-accent">
                   Work
@@ -416,6 +411,7 @@ export default function CapsulePortal() {
                 <span
                   ref={desktopPlaceholderRef}
                   className="hero-capsule-placeholder"
+                  style={{ background: "transparent" }}
                 />
                 <span ref={desktopWorkRef} className="hero-headline-accent">
                   Work
@@ -522,7 +518,13 @@ export default function CapsulePortal() {
         </motion.div>
 
         {/* ── CAPSULE MEDIA LAYER ── */}
-        <div ref={capsuleLayerRef} className="capsule-portal__capsule">
+        <motion.div 
+          ref={capsuleLayerRef} 
+          className="capsule-portal__capsule"
+          initial={{ x: "-50%", y: 40 }}
+          animate={{ x: "-50%", y: 0 }}
+          transition={{ delay: 0.55, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div ref={whiteFillRef} className="absolute inset-0 bg-black" style={{ zIndex: 1 }} />
           <div
             ref={imageFillRef}
@@ -535,7 +537,7 @@ export default function CapsulePortal() {
 
           {/* ── DARK OVERLAY ── */}
           <div ref={darkOverlayRef} className="capsule-portal__dark-overlay" style={{ zIndex: 3 }} />
-        </div>
+        </motion.div>
 
         {/* ── CINEMATIC METRICS ── */}
         <div ref={metricsWrapperRef} className="capsule-portal__metrics">

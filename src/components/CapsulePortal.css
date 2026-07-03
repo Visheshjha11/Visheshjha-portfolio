@@ -120,6 +120,7 @@
 /* ── Capsule placeholder — transparent spacer in headline ── */
 .hero-capsule-placeholder {
   flex: 1;
+  min-width: 4rem;
   height: 0.84em;
   border-radius: 9999px;
   overflow: hidden;

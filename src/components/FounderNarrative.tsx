@@ -78,7 +78,7 @@ function RevealText({ children, className = "", highlightWords = [] }: { childre
         return (
           <span 
             key={i} 
-            className={`rw inline-block mr-[0.3em] ${isHighlighted ? "font-playfair italic font-normal tracking-normal text-white" : ""}`}
+            className={`rw inline-block mr-[0.3em] ${isHighlighted ? "font-playfair italic font-normal tracking-normal text-[var(--text-primary)]" : ""}`}
           >
             {word}
           </span>
@@ -174,6 +174,19 @@ export default function FounderNarrative() {
         });
 
         steps.forEach((step, i) => {
+          // Animate background color on second step
+          if (i === 1) {
+            tl.to(container, {
+              "--bg-color": "#F3F4F4",
+              "--text-primary": "#000000",
+              "--text-accent": "rgba(0, 0, 0, 0.4)",
+              "--line-color": "rgba(0, 0, 0, 0.15)",
+              "--border-color": "rgba(0, 0, 0, 0.1)",
+              duration: 1.5,
+              ease: "power2.inOut"
+            }, "<");
+          }
+
           tl.to(step, {
             opacity: 1,
             y: 0,
@@ -217,6 +230,24 @@ export default function FounderNarrative() {
             }
           }
         );
+      }
+
+      // Background Color Animation
+      if (block2Ref.current) {
+        gsap.to(container, {
+          "--bg-color": "#F3F4F4",
+          "--text-primary": "#000000",
+          "--text-accent": "rgba(0, 0, 0, 0.4)",
+          "--line-color": "rgba(0, 0, 0, 0.15)",
+          "--border-color": "rgba(0, 0, 0, 0.1)",
+          ease: "none",
+          scrollTrigger: {
+            trigger: block2Ref.current,
+            start: "top 75%",
+            end: "top 25%",
+            scrub: true,
+          }
+        });
       }
 
       // Images reveal synced with text blocks
@@ -285,15 +316,21 @@ export default function FounderNarrative() {
           }
         );
       }
-
- 
     });
 
     return () => mm.revert();
   }, []);
 
+  const sectionStyle = {
+    "--bg-color": "#0a0a0a",
+    "--text-primary": "#ffffff",
+    "--text-accent": "rgba(255, 255, 255, 0.25)",
+    "--line-color": "rgba(255, 255, 255, 0.15)",
+    "--border-color": "rgba(255, 255, 255, 0.1)"
+  } as React.CSSProperties;
+
   return (
-    <section id="about" ref={containerRef} className="bg-grit-900 text-white relative overflow-clip">
+    <section id="about" ref={containerRef} className="bg-[var(--bg-color)] text-[var(--text-primary)] relative overflow-clip" style={sectionStyle}>
       {/* Grain texture */}
       <div className="absolute inset-0 grit-texture opacity-40 pointer-events-none" />
 
@@ -304,7 +341,7 @@ export default function FounderNarrative() {
 
           {/* Step 1: Headline */}
           <div className="narrative-step absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
-            <span className="text-[0.45rem] sm:text-[0.5rem] font-header font-bold tracking-[0.35em] uppercase text-white/25 mb-6 sm:mb-8">
+            <span className="text-[0.45rem] sm:text-[0.5rem] font-header font-bold tracking-[0.35em] uppercase text-[var(--text-accent)] mb-6 sm:mb-8">
               003 // NARRATIVE
             </span>
             <h2 className="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-poster font-bold tracking-[-0.04em] leading-[0.85] uppercase text-white drop-shadow-2xl">
@@ -314,38 +351,36 @@ export default function FounderNarrative() {
 
           {/* Step 2: Who I am */}
           <div className="narrative-step absolute inset-0 flex items-center justify-center px-6 sm:px-12 md:px-16 max-w-4xl mx-auto text-center md:text-left">
-            <p className="text-[1.35rem] sm:text-2xl md:text-3xl lg:text-4xl font-body font-light text-white leading-[1.6] sm:leading-[1.5] tracking-tight">
+            <p className="text-[1.35rem] sm:text-2xl md:text-3xl lg:text-4xl font-body font-light text-[var(--text-primary)] leading-[1.6] sm:leading-[1.5] tracking-tight">
               I'm Vishesh Jha. I build AI-powered products that solve real problems. The web doesn't need more noise - it needs intelligence, clarity, and execution.
             </p>
           </div>
 
           {/* Step 3: What I build */}
           <div className="narrative-step absolute inset-0 flex items-center justify-center px-6 sm:px-12 md:px-16 max-w-4xl mx-auto text-center md:text-left">
-            <p className="text-[1.35rem] sm:text-2xl md:text-3xl lg:text-4xl font-body font-light text-white leading-[1.6] sm:leading-[1.5] tracking-tight">
+            <p className="text-[1.35rem] sm:text-2xl md:text-3xl lg:text-4xl font-body font-light text-[var(--text-primary)] leading-[1.6] sm:leading-[1.5] tracking-tight">
                 I build production systems for real users—not demo apps or clones, creating products like Saarthi that bring AI, academics, and productivity into one intelligent workspace.
             </p>
           </div>
 
           {/* Step 4: Pull Quote */}
           <div className="narrative-step absolute inset-0 flex flex-col items-center justify-center px-6 sm:px-12 md:px-16 max-w-5xl mx-auto text-center">
-            <span className="text-[0.45rem] sm:text-[0.5rem] font-header font-bold tracking-[0.35em] uppercase text-white/20 block mb-6 sm:mb-8">
+            <span className="text-[0.45rem] sm:text-[0.5rem] font-header font-bold tracking-[0.35em] uppercase text-[var(--text-accent)] block mb-6 sm:mb-8">
               CORE_BELIEF
             </span>
 
-            <p className="text-[1.7rem] sm:text-4xl md:text-5xl lg:text-6xl font-helvetica font-bold leading-[1.2] tracking-tight uppercase text-white">
+            <p className="text-[1.7rem] sm:text-4xl md:text-5xl lg:text-6xl font-helvetica font-bold leading-[1.2] tracking-tight uppercase text-[var(--text-primary)]">
               "PEOPLE DON'T REMEMBER SOFTWARE. THEY REMEMBER HOW IT MADE THEIR WORK FEEL EFFORTLESS."
             </p>
 
             <div className="mt-8 md:mt-12 flex items-center justify-center gap-3">
-              <div className="h-px w-6 md:w-10 bg-white/15" />
-              <span className="text-[0.45rem] md:text-[0.5rem] font-header font-bold tracking-[0.3em] text-white/15 uppercase">
+              <div className="h-px w-6 md:w-10 bg-[var(--line-color)]" />
+              <span className="text-[0.45rem] md:text-[0.5rem] font-header font-bold tracking-[0.3em] text-[var(--text-accent)] uppercase">
                 THAT'S WHAT I BUILD FOR
               </span>
-              <div className="h-px w-6 md:w-10 bg-white/15" />
+              <div className="h-px w-6 md:w-10 bg-[var(--line-color)]" />
             </div>
           </div>
-
- 
         </div>
 
         {/* ── DESKTOP: OLD NARRATIVE SECTION ── */}
@@ -355,12 +390,12 @@ export default function FounderNarrative() {
           <div className="min-h-screen flex flex-col items-center justify-center px-8 md:px-16 text-center relative z-10">
             <div className="narrative-headline flex flex-col items-center">
               <div className="flex items-center justify-center gap-4 mb-8">
-                <div className="h-px w-12 bg-white/15" />
-                <span className="text-[0.5rem] font-header font-bold tracking-[0.35em] uppercase text-white/25">003 // NARRATIVE</span>
-                <div className="h-px w-12 bg-white/15" />
+                <div className="h-px w-12 bg-[var(--line-color)]" />
+                <span className="text-[0.5rem] font-header font-bold tracking-[0.35em] uppercase text-[var(--text-accent)]">003 // NARRATIVE</span>
+                <div className="h-px w-12 bg-[var(--line-color)]" />
               </div>
               <h2 className="flex flex-col items-center text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-[-0.04em] leading-[0.85] text-white drop-shadow-2xl">
-                <span className="relative z-10 font-playfair italic font-normal tracking-normal text-[0.85em] text-white/90 mb-[-0.15em] ml-[-10%]">Real</span>
+                <span className="relative z-10 font-playfair italic font-normal tracking-normal text-[0.85em] opacity-90 mb-[-0.15em] ml-[-10%]">Real</span>
                 <span className="relative z-0 font-helvetica tracking-tighter">Context.</span>
               </h2>
             </div>
@@ -375,7 +410,7 @@ export default function FounderNarrative() {
               <div ref={block2Ref} className="min-h-screen flex items-center px-8 md:px-16 py-24">
                 <div className="max-w-2xl lg:max-w-3xl">
                   <RevealText 
-                    className="text-xl md:text-2xl lg:text-3xl font-helvetica font-normal text-white leading-[1.6] tracking-tight"
+                    className="text-xl md:text-2xl lg:text-3xl font-helvetica font-normal text-[var(--text-primary)] leading-[1.6] tracking-tight"
                     highlightWords={["AI-powered", "products", "solve", "real", "problems.", "intelligence,", "clarity,", "and", "execution."]}
                   >
                     I'm Vishesh Jha. I build AI-powered products that solve real problems. The web doesn't need more noise - it needs intelligence, clarity, and execution.
@@ -387,7 +422,7 @@ export default function FounderNarrative() {
               <div ref={block3Ref} className="min-h-screen flex items-center px-8 md:px-16 py-24">
                 <div className="max-w-2xl lg:max-w-3xl">
                   <RevealText 
-                    className="text-xl md:text-2xl lg:text-3xl font-helvetica font-normal text-white leading-[1.6] tracking-tight"
+                    className="text-xl md:text-2xl lg:text-3xl font-helvetica font-normal text-[var(--text-primary)] leading-[1.6] tracking-tight"
                     highlightWords={["production", "systems", "real", "users", "100K+", "3,000+", "autonomous", "drone", "dashboard"]}
                   >
                     I build production systems for real users—not demo apps or clones, creating products like Saarthi that bring AI, academics, and productivity into one intelligent workspace.
@@ -399,7 +434,7 @@ export default function FounderNarrative() {
             {/* RIGHT COLUMN: Sticky Image Container */}
             <div className="w-[45%] xl:w-[40%] relative shrink-0 pointer-events-none">
               <div className="sticky top-0 h-screen flex items-center justify-center pr-12 lg:pr-16 xl:pr-24">
-                <div className="relative w-full max-w-sm lg:max-w-md aspect-[4/5] rounded-xl overflow-hidden border border-white/10 shadow-2xl">
+                <div className="relative w-full max-w-sm lg:max-w-md aspect-[4/5] rounded-xl overflow-hidden border border-[var(--border-color)] shadow-2xl">
                   {/* Base Image (Vishesh) */}
                   <div className="absolute inset-0 w-full h-full">
                     <div ref={img1Ref} className="w-full h-full bg-black" />
@@ -417,19 +452,18 @@ export default function FounderNarrative() {
           {/* Block 4: Pull Quote */}
           <div ref={block4Ref} className="min-h-screen flex items-center justify-center px-8 md:px-16 py-24 relative z-10">
               <div className="max-w-4xl text-center mx-auto">
-                <span className="text-[0.5rem] font-header font-bold tracking-[0.35em] uppercase text-white/20 block mb-10">CORE_BELIEF</span>
-                <RevealText className="text-2xl md:text-4xl lg:text-5xl font-helvetica font-bold leading-[1.2] tracking-tight uppercase text-white">
+                <span className="text-[0.5rem] font-header font-bold tracking-[0.35em] uppercase text-[var(--text-accent)] block mb-10">CORE_BELIEF</span>
+                <RevealText className="text-2xl md:text-4xl lg:text-5xl font-helvetica font-bold leading-[1.2] tracking-tight uppercase text-[var(--text-primary)]">
                   "PEOPLE DON'T REMEMBER SOFTWARE. THEY REMEMBER HOW IT MADE THEIR WORK FEEL EFFORTLESS."
                 </RevealText>
                 <div className="mt-12 flex items-center justify-center gap-3">
-                  <div className="h-px w-10 bg-white/15" />
-                  <span className="text-[0.5rem] font-header font-bold tracking-[0.3em] text-white/15 uppercase">THAT'S WHAT I BUILD FOR</span>
-                  <div className="h-px w-10 bg-white/15" />
+                  <div className="h-px w-10 bg-[var(--line-color)]" />
+                  <span className="text-[0.5rem] font-header font-bold tracking-[0.3em] text-[var(--text-accent)] uppercase">THAT'S WHAT I BUILD FOR</span>
+                  <div className="h-px w-10 bg-[var(--line-color)]" />
                 </div>
               </div>
             </div>
         </div>
-
 
         {/* ── SKILLS SECTION (Normal Scroll, Both Devices) ── */}
         <div className="skills-section relative z-20 bg-[#0a0a0a] min-h-[100svh] flex flex-col justify-center py-20 w-full overflow-hidden">
