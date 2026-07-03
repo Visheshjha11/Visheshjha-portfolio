@@ -182,9 +182,9 @@ export default function Hero() {
           <div className="hero-bottom-nav-center">
             <a href="#">BEHANCE</a>
             <span className="hero-bottom-nav-slash">/</span>
-            <a href="#">LINKEDIN</a>
+            <a href="https://www.linkedin.com/in/visheshjha11/">LINKEDIN</a>
             <span className="hero-bottom-nav-slash">/</span>
-            <a href="#">GITHUB</a>
+            <a href="https://github.com/Visheshjha11">GITHUB</a>
           </div>
           <div className="hero-bottom-nav-right">
             <a href="#work">WORK</a>

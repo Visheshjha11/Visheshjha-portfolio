@@ -384,7 +384,7 @@ export default function CaseStudies() {
               [ 01 / {String(projects.length).padStart(2, "0")} ]
             </span>
 
-            <a href="https://github.com/visheshjha11" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[0.6rem] font-header font-bold tracking-[0.3em] uppercase text-[#0a0a0a]/50 hover:text-[#0a0a0a] transition-colors group/all">
+            <a href="https://github.com/Visheshjha11" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[0.6rem] font-header font-bold tracking-[0.3em] uppercase text-[#0a0a0a]/50 hover:text-[#0a0a0a] transition-colors group/all">
               VIEW ALL PROJECTS
               <ArrowUpRight className="w-3.5 h-3.5 group-hover/all:translate-x-0.5 group-hover/all:-translate-y-0.5 transition-transform" />
             </a>

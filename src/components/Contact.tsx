@@ -41,25 +41,25 @@ export default function Contact() {
               <div className="flex flex-col">
                 
                 {/* GitHub */}
-                <a href="https://github.com/visheshjha11" target="_blank" rel="noreferrer" className="flex items-center gap-4 md:gap-6 py-4 md:py-5 border-b border-black/10 group hover:border-black/30 transition-colors w-full">
+                <a href="https://github.com/Visheshjha11" target="_blank" rel="noreferrer" className="flex items-center gap-4 md:gap-6 py-4 md:py-5 border-b border-black/10 group hover:border-black/30 transition-colors w-full">
                   <div className="w-10 h-10 md:w-14 md:h-14 rounded-full border border-black/10 flex items-center justify-center bg-white group-hover:bg-[#f0f0f0] transition-colors shrink-0">
                     <SiGithub className="text-lg md:text-2xl" />
                   </div>
                   <div className="flex flex-col min-w-0">
                     <span className="font-bold text-base md:text-lg tracking-tight truncate">GitHub</span>
-                    <span className="text-xs md:text-sm text-[#0a0a0a]/60 truncate">github.com/visheshjha11</span>
+                    <span className="text-xs md:text-sm text-[#0a0a0a]/60 truncate">github.com/Visheshjha11</span>
                   </div>
                   <ArrowUpRight className="ml-auto text-[#0a0a0a]/40 group-hover:text-[#0a0a0a] transition-colors shrink-0" />
                 </a>
                 
                 {/* LinkedIn */}
-                <a href="https://linkedin.com/in/visheshjha11" target="_blank" rel="noreferrer" className="flex items-center gap-4 md:gap-6 py-4 md:py-5 border-b border-black/10 group hover:border-black/30 transition-colors w-full">
+                <a href="https://www.linkedin.com/in/visheshjha11/" target="_blank" rel="noreferrer" className="flex items-center gap-4 md:gap-6 py-4 md:py-5 border-b border-black/10 group hover:border-black/30 transition-colors w-full">
                   <div className="w-10 h-10 md:w-14 md:h-14 rounded-full border border-black/10 flex items-center justify-center bg-white group-hover:bg-[#f0f0f0] transition-colors shrink-0">
                     <FaLinkedin className="text-lg md:text-2xl" />
                   </div>
                   <div className="flex flex-col min-w-0">
                     <span className="font-bold text-base md:text-lg tracking-tight truncate">LinkedIn</span>
-                    <span className="text-xs md:text-sm text-[#0a0a0a]/60 truncate">linkedin.com/in/visheshjha11</span>
+                    <span className="text-xs md:text-sm text-[#0a0a0a]/60 truncate">linkedin.com/in/visheshjha11/</span>
                   </div>
                   <ArrowUpRight className="ml-auto text-[#0a0a0a]/40 group-hover:text-[#0a0a0a] transition-colors shrink-0" />
                 </a>

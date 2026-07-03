@@ -44,12 +44,12 @@ export default function CapsulePortal() {
   const socialLinks = [
     {
       label: "LinkedIn",
-      href: "https://linkedin.com/visheshjha11",
+      href: "https://www.linkedin.com/in/visheshjha11/",
       icon: TbBrandLinkedin,
     },
     {
       label: "GitHub",
-      href: "https://github.com/visheshjha11",
+      href: "https://github.com/Visheshjha11",
       icon: SiGithub,
     },
     {
@@ -505,9 +505,9 @@ export default function CapsulePortal() {
           <div className="hero-bottom-nav-center">
             <a href="https://medium.com/@visheshjhain">MEDIUM</a>
             <span className="hero-bottom-nav-slash">/</span>
-            <a href="https://linkedin.com/visheshjha11">LINKEDIN</a>
+            <a href="https://www.linkedin.com/in/visheshjha11/">LINKEDIN</a>
             <span className="hero-bottom-nav-slash">/</span>
-            <a href="https://github.com/visheshjha11">GITHUB</a>
+            <a href="https://github.com/Visheshjha11">GITHUB</a>
           </div>
             <div className="hero-bottom-nav-right">
               <a href="#blog">Blog</a>

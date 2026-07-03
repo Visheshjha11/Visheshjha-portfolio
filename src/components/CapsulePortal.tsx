@@ -77,12 +77,12 @@ export default function CapsulePortal() {
   const socialLinks = [
     {
       label: "LinkedIn",
-      href: "https://linkedin.com/visheshjha11",
+      href: "https://www.linkedin.com/in/visheshjha11/",
       icon: FaLinkedin,
     },
     {
       label: "GitHub",
-      href: "https://github.com/visheshjha11",
+      href: "https://github.com/Visheshjha11",
       icon: SiGithub,
     },
     {

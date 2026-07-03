@@ -178,9 +178,9 @@ export default function Hero() {
           <div className="hero-bottom-nav-center">
             <a href="https://medium.com/@visheshjhain" className="cursor-hover">Medium</a>
             <span className="hero-bottom-nav-slash">/</span>
-            <a href="https://linkedin.com/visheshjha11" className="cursor-hover">LINKEDIN</a>
+            <a href="https://www.linkedin.com/in/visheshjha11/" className="cursor-hover">LINKEDIN</a>
             <span className="hero-bottom-nav-slash">/</span>
-            <a href="https://github.com/visheshjha11" className="cursor-hover">GITHUB</a>
+            <a href="https://github.com/Visheshjha11" className="cursor-hover">GITHUB</a>
           </div>
           <div className="hero-bottom-nav-right">
             <a href="#work" className="cursor-hover">Blog</a>
