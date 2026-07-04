@@ -1,12 +1,14 @@
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "motion/react";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Navigation() {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [lastY, setLastY] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
   // We only hide navbar if the menu is NOT open
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -22,10 +24,13 @@ export default function Navigation() {
     setLastY(latest);
   });
 
+  const isHome = location.pathname === "/";
+
   const links = [
-    { label: "Work", href: "#work" },
-    { label: "About", href: "#about" },
-    { label: "Contact", href: "#contact" },
+    { label: "Work", href: isHome ? "#work" : "/#work" },
+    { label: "Blog", href: "/blog" },
+    { label: "About", href: isHome ? "#about" : "/#about" },
+    { label: "Contact", href: isHome ? "#contact" : "/#contact" },
   ];
 
   return (
@@ -37,26 +42,36 @@ export default function Navigation() {
         }}
         animate={hidden && !menuOpen ? "hidden" : "visible"}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 left-0 w-full z-50 px-6 py-6 md:py-8 flex justify-end items-center mix-blend-difference"
+        className="fixed top-0 left-0 w-full z-50 px-6 py-6 md:py-8 flex justify-end items-center mix-blend-difference pointer-events-none"
       >
 
 
         {/* Desktop Links */}
-        <div className="hidden md:flex gap-8">
+        <div className="hidden md:flex gap-8 pointer-events-auto">
           {links.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-xs font-header font-bold tracking-[0.2em] uppercase text-white hover:text-white/60 transition-colors"
-            >
-              {link.label}
-            </a>
+            link.href.startsWith("#") ? (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-xs font-header font-bold tracking-[0.2em] uppercase text-white hover:text-white/60 transition-colors"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.label}
+                to={link.href}
+                className="text-xs font-header font-bold tracking-[0.2em] uppercase text-white hover:text-white/60 transition-colors"
+              >
+                {link.label}
+              </Link>
+            )
           ))}
         </div>
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-white hover:text-white/70 transition-colors"
+          className="md:hidden text-white hover:text-white/70 transition-colors pointer-events-auto"
           onClick={() => setMenuOpen(true)}
           aria-label="Open Menu"
         >
@@ -89,17 +104,34 @@ export default function Navigation() {
             {/* Links */}
             <div className="flex flex-col items-center gap-12 relative z-10">
               {links.map((link, i) => (
-                <motion.a
-                  key={link.label}
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + i * 0.1, duration: 0.5, ease: "easeOut" }}
-                  className="text-5xl font-poster font-bold tracking-widest uppercase hover:text-accent transition-colors"
-                >
-                  {link.label}
-                </motion.a>
+                link.href.startsWith("#") ? (
+                  <motion.a
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 + i * 0.1, duration: 0.5, ease: "easeOut" }}
+                    className="text-5xl font-poster font-bold tracking-widest uppercase hover:text-accent transition-colors"
+                  >
+                    {link.label}
+                  </motion.a>
+                ) : (
+                  <motion.div
+                    key={link.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 + i * 0.1, duration: 0.5, ease: "easeOut" }}
+                  >
+                    <Link
+                      to={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="text-5xl font-poster font-bold tracking-widest uppercase hover:text-accent transition-colors block"
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                )
               ))}
             </div>
 
@@ -119,3 +151,4 @@ export default function Navigation() {
     </>
   );
 }
+

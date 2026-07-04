@@ -121,7 +121,7 @@
 .hero-capsule-placeholder {
   flex: 1;
   min-width: 4rem;
-  height: 0.84em;
+  height: 0.74em;
   border-radius: 9999px;
   overflow: hidden;
   position: relative;
@@ -129,6 +129,7 @@
   align-items: center;
   justify-content: center;
   background: #000000;
+  transform: translateY(0.1em);
 }
 
 /* ── Reduced motion: skip the portal animation entirely ── */

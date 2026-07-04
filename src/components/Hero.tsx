@@ -180,11 +180,13 @@ export default function Hero() {
             <span>V3.0</span>
           </div>
           <div className="hero-bottom-nav-center">
-            <a href="#">BEHANCE</a>
+            <a href="https://www.linkedin.com/in/visheshjha11/" target="_blank" rel="noreferrer">LINKEDIN</a>
             <span className="hero-bottom-nav-slash">/</span>
-            <a href="https://www.linkedin.com/in/visheshjha11/">LINKEDIN</a>
+            <a href="https://github.com/Visheshjha11" target="_blank" rel="noreferrer">GITHUB</a>
             <span className="hero-bottom-nav-slash">/</span>
-            <a href="https://github.com/Visheshjha11">GITHUB</a>
+            <a href="https://yt.cool/IGIVBF" target="_blank" rel="noreferrer">YOUTUBE</a>
+            <span className="hero-bottom-nav-slash">/</span>
+            <a href="https://substack.com/@visheshjha11" target="_blank" rel="noreferrer">SUBSTACK</a>
           </div>
           <div className="hero-bottom-nav-right">
             <a href="#work">WORK</a>

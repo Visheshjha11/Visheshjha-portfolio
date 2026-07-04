@@ -240,14 +240,14 @@
   width: 4rem;
   height: 1px;
   background: rgba(10, 10, 10, 0.2);
-  margin: 1rem auto;
+  margin: 0.75rem auto;
   transform-origin: center;
 }
 
 @media (min-width: 768px) {
   .hero-divider {
     width: 5rem;
-    margin: 1.7rem auto 1.7rem auto;
+    margin: 1rem auto 1rem auto;
   }
 }
 
@@ -448,9 +448,4 @@
 .hero-bottom-nav a {
   text-decoration: none;
   color: inherit;
-  transition: opacity 0.3s ease;
-}
-
-.hero-bottom-nav a:hover {
-  opacity: 0.5;
 }

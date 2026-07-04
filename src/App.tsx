@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 
 import Home from "./pages/Home";
 import CaseStudy from "./pages/CaseStudy";
+import Blog from "./pages/Blog";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -46,6 +47,7 @@ export default function App() {
                 <Routes location={location}>
                   <Route path="/" element={<Home />} />
                   <Route path="/project/:id" element={<CaseStudy />} />
+                  <Route path="/blog" element={<Blog />} />
                 </Routes>
               </motion.div>
             </AnimatePresence>

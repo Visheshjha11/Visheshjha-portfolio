@@ -99,7 +99,7 @@ export default function FounderNarrative() {
 
   const techItems = [
   {
-    link: '#',
+    link: '#about',
     text: 'SYSTEMS I BUILD',
     logos: [
       { node: <SiNextdotjs />, title: "Next.js" },
@@ -116,7 +116,7 @@ export default function FounderNarrative() {
     ]
   },
   {
-    link: '#',
+    link: '#work',
     text: 'AI & BACKEND',
     logos: [
       { node: <SiOpenai />, title: "OpenAI" },
@@ -129,7 +129,7 @@ export default function FounderNarrative() {
     ]
   },
   {
-    link: '#',
+    link: '#contact',
     text: 'TOOLS I USE DAILY',
     logos: [
       { node: <SiGit />, title: "Git" },

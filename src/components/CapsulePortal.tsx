@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaLinkedin } from "react-icons/fa";
 import { SiGithub, SiSubstack, SiYoutube, SiGmail } from "react-icons/si";
+import { Link } from "react-router-dom";
 import Dither from "./ui/Dither";
 import { Dock, DockIcon } from "./ui/dock";
 
@@ -545,7 +546,7 @@ export default function CapsulePortal() {
               </Dock>
             </div>
             <div className="hero-bottom-nav-right">
-              <a href="#blog">Blog</a>
+              <Link to="/blog">Blog</Link>
               <a href="#about">INFO</a>
               <a href="#contact">CONTACT</a>
             </div>
