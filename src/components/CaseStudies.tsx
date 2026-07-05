@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
 import saarthiImage from "../assets/Saarthicover.png";
+import prepxImage from "../assets/PrepX_main.png";
 import { 
   saarthiRole, 
   saarthiTimeline, 
@@ -73,7 +74,7 @@ export const projects: Project[] = [
     title: "PrepX",
     tags: ["Next.js", "React", "TypeScript", "Node.js", "MongoDB", "OpenAI"],
     description: <>An intelligent examination platform that transforms preparation into a personalized, data-driven learning experience.</>,
-    image: "",
+    image: prepxImage,
     role: prepxRole,
     timeline: prepxTimeline,
     platform: prepxPlatform,
