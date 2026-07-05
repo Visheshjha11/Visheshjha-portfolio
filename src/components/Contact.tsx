@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 
 export default function Contact() {
   return (
-    <section className="relative w-full min-h-screen bg-[#E5E6E1] text-[#0a0a0a] p-6 md:p-12 font-sans overflow-hidden flex flex-col">
+    <section className="relative w-full min-h-screen bg-[#FAFAFA] text-[#0a0a0a] p-6 md:p-12 font-sans overflow-hidden flex flex-col">
       <div className="flex flex-col md:grid md:grid-cols-12 flex-1 w-full gap-8 md:gap-0">
         
         {/* Left Column: CONTACT text & Copyright */}

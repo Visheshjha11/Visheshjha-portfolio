@@ -1,76 +1,86 @@
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function LoadingScreen({
   onComplete,
 }: {
   onComplete: () => void;
 }) {
-  const [progress, setProgress] = useState(0);
+
 
   useEffect(() => {
-    const duration = 3500;
-    const intervalTime = 35;
-    const steps = duration / intervalTime;
-    let currentStep = 0;
+    // 4.2 seconds duration gives a smooth, deliberate feel
+    const timer = setTimeout(() => {
+      onComplete();
+    }, 4200);
 
-    const timer = setInterval(() => {
-      currentStep++;
-      const nextProgress = Math.min(
-        100,
-        Math.floor((currentStep / steps) * 100)
-      );
-      setProgress(nextProgress);
-
-      if (currentStep >= steps) {
-        clearInterval(timer);
-        setTimeout(onComplete, 300);
-      }
-    }, intervalTime);
-
-    return () => clearInterval(timer);
+    return () => clearTimeout(timer);
   }, [onComplete]);
 
   return (
-    <div className="relative w-full h-full flex flex-col justify-between bg-[#0a0a0a] overflow-hidden p-8 md:p-16 z-[100]">
+    <div className="relative w-full h-full flex flex-col justify-between bg-[#F5F5F5] p-6 md:p-12 z-[100] text-[#0a0a0a]">
       {/* Top Header */}
-      <div className="w-full flex justify-between items-start">
-        <p className="text-white/40 font-mono text-xs uppercase tracking-widest">
-          VJ_CORE_V4.0
-        </p>
-
-        <p className="text-white/40 font-mono text-xs uppercase tracking-widest text-right">
-          SYSTEM
+      <div className="w-full flex justify-between items-start font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-[#0a0a0a]/50">
+        <motion.p
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.2 }}
+        >
+          VJ
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.4 }}
+          className="text-right"
+        >
+          System
           <br />
-          INITIALIZATION
-        </p>
+          Initialization
+        </motion.p>
       </div>
 
-      {/* Center Loading Bar */}
-      <div className="flex flex-col items-center justify-center gap-6">
-        <div className="w-72 sm:w-96 md:w-[32rem] h-[2px] bg-white/10 overflow-hidden">
+      {/* Center Layout */}
+      <div className="flex flex-col items-center justify-center gap-10 w-full">
+        <div className="overflow-hidden py-2">
+          <motion.h1
+            initial={{ y: "110%" }}
+            animate={{ y: "0%" }}
+            transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
+            className="font-poster text-5xl sm:text-7xl md:text-9xl font-bold uppercase tracking-tight text-[#0a0a0a] leading-none"
+          >
+            Vishesh Jha
+          </motion.h1>
+        </div>
+        
+        {/* Progress Line */}
+        <div className="w-64 sm:w-80 md:w-96 h-[1px] bg-[#0a0a0a]/10 overflow-hidden relative">
           <motion.div
-            className="h-full bg-white"
-            animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.08, ease: "linear" }}
-            style={{ width: 0 }}
+            className="absolute top-0 left-0 h-full bg-[#0a0a0a]"
+            initial={{ width: "0%" }}
+            animate={{ width: "100%" }}
+            transition={{ duration: 3.2, delay: 0.5, ease: [0.76, 0, 0.24, 1] }}
           />
         </div>
-
-        <p className="text-white/35 font-mono text-[11px] uppercase tracking-[0.35em]">
-          Loading Portfolio...
-        </p>
+        
       </div>
 
       {/* Bottom Footer */}
-      <div className="w-full flex justify-between items-end">
-        <p className="text-white/40 font-mono text-[10px] md:text-xs uppercase tracking-widest leading-relaxed">
-          LOADING RESOURCES, TEXTURES & SCRIPTS...
-        </p>
-
-        <p className="text-white font-header text-sm sm:text-base font-bold uppercase tracking-[0.2em]">
-          VISHESH JHA
-        </p>
+      <div className="w-full flex justify-between items-end font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-[#0a0a0a]/50">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.6 }}
+        >
+          Loading Assets...
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.8 }}
+        >
+          Est. 2026
+        </motion.p>
       </div>
     </div>
   );

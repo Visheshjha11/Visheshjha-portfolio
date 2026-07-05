@@ -235,7 +235,7 @@ export default function CaseStudies() {
   }, []);
 
   return (
-    <section id="work" ref={sectionRef} className="relative bg-[#F5F5F5] lg:overflow-hidden">
+    <section id="work" ref={sectionRef} className="relative bg-[#F3F4F4] lg:overflow-hidden">
       <div ref={contentWrapperRef} className="flex flex-col lg:h-screen will-change-transform">
         <div ref={innerRef} className="flex flex-col w-full h-full">
           {/* Scrolling content - Fixed height collapse by adding flex flex-col */}
@@ -247,7 +247,7 @@ export default function CaseStudies() {
             {projects.map((project) => (
               <div
                 key={project.id}
-                className="case-card bg-[#F5F5F5] w-full lg:w-[100vw] h-auto lg:h-full lg:flex-shrink-0 relative lg:overflow-hidden flex flex-col lg:block pt-24 pb-20 lg:py-0 px-6 sm:px-12 lg:px-0 border-b border-[#0a0a0a]/10 lg:border-none"
+                className="case-card bg-[#F3F4F4] w-full lg:w-[100vw] h-auto lg:h-full lg:flex-shrink-0 relative lg:overflow-hidden flex flex-col lg:block pt-24 pb-20 lg:py-0 px-6 sm:px-12 lg:px-0 border-b border-[#0a0a0a]/10 lg:border-none"
               >
 
                 {/* ── MOBILE & TABLET LAYOUT (< lg) ── */}
@@ -299,7 +299,7 @@ export default function CaseStudies() {
                     </p>
 
                     {/* CTA */}
-                    <Link to={`/project/${project.id}`} className="inline-flex justify-center items-center gap-2 text-[0.6rem] sm:text-xs font-header font-bold tracking-[0.25em] uppercase bg-[#0a0a0a] text-[#F5F5F5] w-full sm:w-auto px-8 py-4 sm:py-5 hover:bg-[#0a0a0a]/80 transition-colors group/btn">
+                    <Link to={`/project/${project.id}`} className="inline-flex justify-center items-center gap-2 text-[0.6rem] sm:text-xs font-header font-bold tracking-[0.25em] uppercase bg-[#0a0a0a] text-[#F3F4F4] w-full sm:w-auto px-8 py-4 sm:py-5 hover:bg-[#0a0a0a]/80 transition-colors group/btn">
                       VIEW CASE STUDY
                       <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                     </Link>
@@ -357,7 +357,7 @@ export default function CaseStudies() {
                     <p className="text-sm md:text-base font-body font-medium text-[#0a0a0a]/90 leading-[1.6] mb-5">
                       {project.description}
                     </p>
-                    <Link to={`/project/${project.id}`} className="inline-flex items-center gap-1.5 text-[0.55rem] font-header font-bold tracking-[0.25em] uppercase text-[#0a0a0a] border border-[#0a0a0a]/40 px-4 py-2 hover:bg-[#0a0a0a] hover:text-[#F5F5F5] transition-all duration-300 group/btn">
+                    <Link to={`/project/${project.id}`} className="inline-flex items-center gap-1.5 text-[0.55rem] font-header font-bold tracking-[0.25em] uppercase text-[#0a0a0a] border border-[#0a0a0a]/40 px-4 py-2 hover:bg-[#0a0a0a] hover:text-[#F3F4F4] transition-all duration-300 group/btn">
                       VIEW CASE STUDY
                       <ArrowUpRight className="w-2.5 h-2.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                     </Link>
@@ -371,7 +371,7 @@ export default function CaseStudies() {
         </div>
 
         {/* ── Fixed Bottom Bar with Progress (Desktop only) ── */}
-        <div className="hidden lg:flex relative bg-[#F5F5F5] z-10 flex-shrink-0 flex-col">
+        <div className="hidden lg:flex relative bg-[#F3F4F4] z-10 flex-shrink-0 flex-col">
           <div className="relative h-[3px] w-full bg-[#0a0a0a]/10 overflow-hidden">
             <div
               ref={progressRef}
