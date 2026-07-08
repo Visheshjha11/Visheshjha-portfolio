@@ -7,20 +7,40 @@ import { motion, AnimatePresence } from "motion/react";
 import Home from "./pages/Home";
 import CaseStudy from "./pages/CaseStudy";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
+  const [fontsLoaded, setFontsLoaded] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    if (document.fonts) {
+      document.fonts.ready.then(() => setFontsLoaded(true));
+    } else {
+      setFontsLoaded(true);
+    }
+  }, []);
 
   // Prevent scrolling while loading
   useEffect(() => {
     if (loading) {
+      // Prevent layout shift when scrollbar is hidden by reserving its space
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
     } else {
       document.body.style.overflow = "";
+      document.body.style.paddingRight = "0px";
+      // Force ScrollTrigger to recalculate measurements after the scrollbar
+      // appears and the layout settles, fixing any capsule positioning issues.
+      setTimeout(() => {
+        window.dispatchEvent(new Event("resize"));
+      }, 100);
     }
     return () => {
       document.body.style.overflow = "";
+      document.body.style.paddingRight = "0px";
     };
   }, [loading]);
 
@@ -56,11 +76,14 @@ export default function App() {
             transition={{ duration: 0.5, ease: "easeInOut", delay: loading ? 1.2 : 0 }}
             className="w-full min-h-screen"
           >
-            <Routes location={location}>
-              <Route path="/" element={<Home />} />
-              <Route path="/project/:id" element={<CaseStudy />} />
-              <Route path="/blog" element={<Blog />} />
-            </Routes>
+            {fontsLoaded && (
+              <Routes location={location}>
+                <Route path="/" element={<Home />} />
+                <Route path="/project/:id" element={<CaseStudy />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:id" element={<BlogPost />} />
+              </Routes>
+            )}
           </motion.div>
         </AnimatePresence>
       </motion.div>

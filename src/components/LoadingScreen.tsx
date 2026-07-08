@@ -10,11 +10,14 @@ export default function LoadingScreen({
 
   useEffect(() => {
     // 4.2 seconds duration gives a smooth, deliberate feel
-    const timer = setTimeout(() => {
-      onComplete();
-    }, 4200);
+    const timerPromise = new Promise(resolve => setTimeout(resolve, 4200));
+    
+    // Also ensure fonts are fully loaded so layout measurements in CapsulePortal are perfect
+    const fontsPromise = document.fonts ? document.fonts.ready : Promise.resolve();
 
-    return () => clearTimeout(timer);
+    Promise.all([timerPromise, fontsPromise]).then(() => {
+      onComplete();
+    });
   }, [onComplete]);
 
   return (
