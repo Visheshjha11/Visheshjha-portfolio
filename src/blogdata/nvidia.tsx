@@ -7,7 +7,7 @@ export const nvidiaPost: BlogPostType = {
   title: "NVIDIA: THE RISE OF AN AI COLOSSUS",
   excerpt: "In 2006, NVIDIA was a struggling GPU company worth $2 billion,On the brink of irrelevance. Fast forward two decades, and it's now worth over $2.5 trillion—more than the combined value of Meta, Netflix, and Disney. How did it pull off one of the most stunning corporate comebacks ever?",
   tags: ["COMPANY PROFILE", "BUSINESS"],
-  link: "/blog/NVIDIA: THE RISE OF AN AI COLOSSUS",
+  link: "/blog/nvidia-the-rise-of-an-ai-colossus",
   isInternal: true,
   content: (
     <>
