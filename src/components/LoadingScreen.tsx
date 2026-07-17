@@ -9,8 +9,8 @@ export default function LoadingScreen({
 
 
   useEffect(() => {
-    // Reduced from 4200 to 1000ms to dramatically improve FCP/LCP metrics
-    const timerPromise = new Promise(resolve => setTimeout(resolve, 1000));
+    // Increased to 2500ms for a more cinematic feel
+    const timerPromise = new Promise(resolve => setTimeout(resolve, 2500));
     
     // Also ensure fonts are fully loaded so layout measurements in CapsulePortal are perfect
     const fontsPromise = document.fonts ? document.fonts.ready : Promise.resolve();
@@ -56,15 +56,8 @@ export default function LoadingScreen({
           </motion.h1>
         </div>
         
-        {/* Progress Line */}
-        <div className="w-64 sm:w-80 md:w-96 h-[1px] bg-[#0a0a0a]/10 overflow-hidden relative">
-          <motion.div
-            className="absolute top-0 left-0 h-full bg-[#0a0a0a]"
-            initial={{ width: "0%" }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 3.2, delay: 0.5, ease: [0.76, 0, 0.24, 1] }}
-          />
-        </div>
+        {/* Simple Line */}
+        <div className="w-64 sm:w-80 md:w-96 h-[1px] bg-[#0a0a0a]" />
         
       </div>
 
