@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import LoadingScreen from "./components/LoadingScreen";
 import CustomCursor from "./components/CustomCursor";
 import { motion, AnimatePresence } from "motion/react";
 
-import Home from "./pages/Home";
-import CaseStudy from "./pages/CaseStudy";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
+const Home = lazy(() => import("./pages/Home"));
+const CaseStudy = lazy(() => import("./pages/CaseStudy"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -77,12 +77,14 @@ export default function App() {
             className="w-full min-h-screen"
           >
             {fontsLoaded && (
-              <Routes location={location}>
-                <Route path="/" element={<Home />} />
-                <Route path="/project/:id" element={<CaseStudy />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/blog/:id" element={<BlogPost />} />
-              </Routes>
+              <Suspense fallback={null}>
+                <Routes location={location}>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/project/:id" element={<CaseStudy />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/:id" element={<BlogPost />} />
+                </Routes>
+              </Suspense>
             )}
           </motion.div>
         </AnimatePresence>

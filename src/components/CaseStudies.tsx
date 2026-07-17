@@ -3,8 +3,8 @@ import { ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
-import saarthiImage from "../assets/Saarthicover.png";
-import prepxImage from "../assets/PrepX_main.png";
+import saarthiImage from "../assets/Saarthicover.webp";
+import prepxImage from "../assets/PrepX_main.webp";
 import { 
   saarthiRole, 
   saarthiTimeline, 
@@ -245,7 +245,7 @@ export default function CaseStudies() {
 
             {/* ── Project Cards ── */}
             {projects.map((project) => (
-              <div
+              <article
                 key={project.id}
                 className="case-card bg-[#F3F4F4] w-full lg:w-[100vw] h-auto lg:h-full lg:flex-shrink-0 relative lg:overflow-hidden flex flex-col lg:block pt-24 pb-20 lg:py-0 px-6 sm:px-12 lg:px-0 border-b border-[#0a0a0a]/10 lg:border-none"
               >
@@ -256,7 +256,7 @@ export default function CaseStudies() {
                   {/* LEFT SIDE (Tablet) / TOP (Mobile) */}
                   <div className="flex-1 flex flex-col w-full">
                     {/* Label */}
-                    <span className="text-[0.6rem] font-header font-bold tracking-[0.4em] uppercase text-[#0a0a0a]/40 mb-6 block">
+                    <span className="text-[0.6rem] font-header font-bold tracking-[0.4em] uppercase text-[#0a0a0a]/70 mb-6 block">
                       PROJECT {project.num}
                     </span>
 
@@ -266,7 +266,7 @@ export default function CaseStudies() {
                     </h3>
 
                     {/* Image */}
-                    <Link to={`/project/${project.id}`} className="w-full block aspect-[4/5] sm:aspect-square md:aspect-[4/5] overflow-hidden mb-6 md:mb-0 bg-[#0a0a0a]/5">
+                    <Link to={`/project/${project.id}`} aria-label={`View case study for ${project.title}`} className="w-full block aspect-[4/5] sm:aspect-square md:aspect-[4/5] overflow-hidden mb-6 md:mb-0 bg-[#0a0a0a]/5">
                       {project.image ? (
                         <img
                           src={project.image}
@@ -311,7 +311,7 @@ export default function CaseStudies() {
                 <div className="desktop-card hidden lg:block w-full h-full relative">
                   {/* PROJECT label */}
                   <div className="absolute z-20" style={{ left: '14%', top: '18%' }}>
-                    <span className="text-[0.55rem] font-header font-bold tracking-[0.4em] uppercase text-[#0a0a0a]/40">
+                    <span className="text-[0.55rem] font-header font-bold tracking-[0.4em] uppercase text-[#0a0a0a]/70">
                       PROJECT {project.num}
                     </span>
                   </div>
@@ -326,6 +326,7 @@ export default function CaseStudies() {
                   {/* Photo */}
                   <Link 
                     to={`/project/${project.id}`} 
+                    aria-label={`View case study for ${project.title}`}
                     className="card-photo absolute z-10 block cursor-none" 
                     style={{ left: '32%', top: '50%', transform: 'translateY(-50%)', width: '36vw', maxWidth: '480px' }}
                   >
@@ -364,7 +365,7 @@ export default function CaseStudies() {
                   </div>
                 </div>
 
-              </div>
+              </article>
             ))}
 
           </div>

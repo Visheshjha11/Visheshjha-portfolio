@@ -402,7 +402,7 @@ export default function CapsulePortal() {
             className="hero-headline-wrapper"
           >
             {/* ── Mobile headline ── */}
-            <h1 className="hero-headline hero-headline--mobile">
+            <h1 className="hero-headline hero-headline--mobile" aria-hidden="true">
               <span ref={mobileLine1Ref} className="hero-headline-line">
                 Building
               </span>

@@ -9,8 +9,8 @@ export default function LoadingScreen({
 
 
   useEffect(() => {
-    // 4.2 seconds duration gives a smooth, deliberate feel
-    const timerPromise = new Promise(resolve => setTimeout(resolve, 4200));
+    // Reduced from 4200 to 1000ms to dramatically improve FCP/LCP metrics
+    const timerPromise = new Promise(resolve => setTimeout(resolve, 1000));
     
     // Also ensure fonts are fully loaded so layout measurements in CapsulePortal are perfect
     const fontsPromise = document.fonts ? document.fonts.ready : Promise.resolve();

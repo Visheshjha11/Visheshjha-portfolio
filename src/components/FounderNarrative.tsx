@@ -473,7 +473,7 @@ export default function FounderNarrative() {
             <FlowingMenu items={techItems} />
           </div>
           <div className="mt-auto pb-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 w-full">
-            <span className="text-[0.65rem] sm:text-xs md:text-sm font-header font-bold tracking-[0.35em] uppercase text-white/40">
+            <span className="text-[0.65rem] sm:text-xs md:text-sm font-header font-bold tracking-[0.35em] uppercase text-white/70">
               EDUCATION://
             </span>
             <span className="text-sm sm:text-base md:text-lg font-header font-bold text-white/60 tracking-tight text-center">

@@ -1,0 +1,15 @@
+# Vishesh Jha - Full Stack Developer
+> Building Products That Matter
+
+Vishesh Jha is a Full Stack Developer building scalable, AI-powered products.
+
+## Projects
+- Saarthi: AI-powered academic operating system.
+- PrepX: Intelligent examination platform.
+- PULSE: Smart wearable ecosystem for emergency detection.
+- Veronica: Autonomous AI assistant.
+
+## Links
+- LinkedIn: https://www.linkedin.com/in/visheshjha11/
+- GitHub: https://github.com/Visheshjha11
+- Website: https://visheshjha-portfolio.vercel.app

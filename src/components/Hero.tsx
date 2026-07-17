@@ -54,7 +54,7 @@ export default function Hero() {
           className="hero-headline-wrapper"
         >
           {/* Mobile headline */}
-          <h1 className="hero-headline hero-headline--mobile">
+          <h1 className="hero-headline hero-headline--mobile" aria-hidden="true">
             <span className="hero-headline-line">Building</span>
             <span className="hero-headline-line">Products</span>
             <span className="hero-headline-line hero-headline-line--split">
@@ -70,13 +70,14 @@ export default function Hero() {
                 </motion.span>
               </span>
               <span className="hero-headline-accent">Matter
-                <svg
-                  className="hero-circle-svg"
-                  viewBox="0 0 120 45"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  preserveAspectRatio="none"
-                >
+                  <svg
+                    className="hero-circle-svg"
+                    viewBox="0 0 120 45"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                  >
                   <motion.path
                     d="M110 8.5C95 5.5 45 4.5 15 12.5C-5 18.5 2 34.5 25 39.5C55 44.5 105 40.5 115 28.5C122 18.5 95 10.5 75 9.5"
                     stroke="#da2727"
@@ -107,13 +108,14 @@ export default function Hero() {
                 </motion.span>
               </span>
               <span className="hero-headline-accent">Matter
-                <svg
-                  className="hero-circle-svg"
-                  viewBox="0 0 120 45"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  preserveAspectRatio="none"
-                >
+                  <svg
+                    className="hero-circle-svg"
+                    viewBox="0 0 120 45"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                  >
                   <motion.path
                     d="M110 8.5C95 5.5 45 4.5 15 12.5C-5 18.5 2 34.5 25 39.5C55 44.5 105 40.5 115 28.5C122 18.5 95 10.5 75 9.5"
                     stroke="#da2727"
