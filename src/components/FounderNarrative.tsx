@@ -371,7 +371,7 @@ export default function FounderNarrative() {
           {/* Step 2: Who I am */}
           <div className="narrative-step absolute inset-0 flex items-center justify-center px-6 sm:px-12 md:px-16 max-w-4xl mx-auto text-center md:text-left">
             <p className="text-[1.35rem] sm:text-2xl md:text-3xl lg:text-4xl font-body font-light text-[var(--text-primary)] leading-[1.6] sm:leading-[1.5] tracking-tight">
-              I'm Vishesh Jha. I build AI-powered products that solve real problems.The web doesn't need more noise - it needs intelligence, clarity, and execution.
+              Hii, I'm Vishesh Jha. I build AI-powered products that solve real problems.The web doesn't need more noise - it needs intelligence, clarity, and execution.
             </p>
           </div>
 
@@ -432,7 +432,14 @@ export default function FounderNarrative() {
                     className="text-xl md:text-2xl lg:text-3xl font-helvetica font-normal text-[var(--text-primary)] leading-[1.6] tracking-tight"
                     highlightWords={["AI-powered", "products", "solve", "real", "problems.", "intelligence,", "clarity,", "and", "execution."]}
                   >
-                    I'm Vishesh Jha. I build AI-powered products that solve real problems. The web doesn't need more noise - it needs intelligence, clarity, and execution.
+                    Hii, I'm Vishesh Jha. I build AI-powered products that solve real problems.
+                  </RevealText>
+                  <br/>
+                  <RevealText 
+                    className="text-xl md:text-2xl lg:text-3xl font-helvetica font-normal text-[var(--text-primary)] leading-[1.6] tracking-tight"
+                    highlightWords={["intelligence,", "clarity,", "and", "execution."]}
+                  >
+                    The web doesn't need more noise - it needs intelligence, clarity, and execution.
                   </RevealText>
                 </div>
               </div>
