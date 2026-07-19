@@ -1,7 +1,55 @@
 import { motion } from "motion/react";
-
+import { useEffect, useState } from "react";
 
 export default function Contact() {
+  const [visitorCount, setVisitorCount] = useState<number | null>(null);
+  const [location, setLocation] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Fetch Visitor Count
+    fetch("https://api.counterapi.dev/v1/visheshjha-portfolio/visits/up")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.count) {
+          setVisitorCount(data.count);
+        }
+      })
+      .catch(console.error);
+
+    // Fetch Geolocation using HTML5 Geolocation API for exact location
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          fetch(
+            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+          )
+            .then((res) => res.json())
+            .then((data) => {
+              const city = data.city || data.locality;
+              const country = data.countryName;
+              if (city && country) {
+                setLocation(`${city}, ${country}`);
+              }
+            })
+            .catch(console.error);
+        },
+        (error) => {
+          console.error("Error getting location:", error);
+          // Fallback to IP based if they deny permission or it fails
+          fetch("https://freeipapi.com/api/json")
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.cityName && data.countryName) {
+                setLocation(`${data.cityName}, ${data.countryName}`);
+              }
+            })
+            .catch(console.error);
+        }
+      );
+    }
+  }, []);
+
   return (
     <section className="relative w-full min-h-screen bg-[#FAFAFA] text-[#0a0a0a] p-6 md:p-12 font-sans overflow-hidden flex flex-col">
       <div className="flex flex-col md:grid md:grid-cols-12 flex-1 w-full gap-8 md:gap-0">
@@ -51,6 +99,16 @@ export default function Contact() {
               <a href="https://yt.cool/IGIVBF" target="_blank" rel="noreferrer">YOUTUBE</a>
               <a href="https://substack.com/@visheshjha11" target="_blank" rel="noreferrer">SUBSTACK</a>
             </div>
+          </div>
+
+          {/* Visitor Stats */}
+          <div className="flex flex-col text-[#666666] font-sans text-sm md:text-base font-normal tracking-normal normal-case mt-12 md:mt-16">
+            {visitorCount !== null && (
+              <span className="mb-4">{visitorCount.toLocaleString()} visitors so far</span>
+            )}
+            {location && (
+              <span>You're visiting from {location}</span>
+            )}
           </div>
 
           {/* Designer & Mobile Copyright */}
