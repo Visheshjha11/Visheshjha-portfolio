@@ -376,23 +376,23 @@ export default function CapsulePortal() {
           <div className="hero-grid-line hero-grid-line--right" />
         </div>
 
+        {/* Role Tag — positioned independently at top */}
+        <motion.div
+          ref={roleTagRef}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          className="hero-role-tag hero-role-tag--top"
+        >
+          <span className="hero-meta-label hero-meta-label--left">Portfolio</span>
+          <div className="hero-role-line" />
+          <p className="hero-role-text">Full Stack Developer</p>
+          <div className="hero-role-line" />
+          <span className="hero-meta-label hero-meta-label--right">Vishesh Jha</span>
+        </motion.div>
+
         {/* Main Content */}
         <div className="hero-content" style={{ zIndex: 10 }}>
-          {/* Role Tag */}
-          <motion.div
-            ref={roleTagRef}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="hero-role-tag"
-          >
-            <span className="hero-meta-label hero-meta-label--left">Portfolio</span>
-            <div className="hero-role-line" />
-            <p className="hero-role-text">Full Stack Developer</p>
-            <div className="hero-role-line" />
-            <span className="hero-meta-label hero-meta-label--right">Vishesh Jha</span>
-          </motion.div>
-
           {/* Headline */}
           <motion.div
             ref={headlineWrapperRef}
