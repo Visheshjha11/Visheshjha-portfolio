@@ -2,38 +2,8 @@ import { motion } from "motion/react";
 import SmoothScroll from "../components/SmoothScroll";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
-import { FaLinkedin } from "react-icons/fa";
-import { SiGithub, SiSubstack, SiYoutube, SiGmail } from "react-icons/si";
-
-const socialLinks = [
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/visheshjha11/",
-    icon: FaLinkedin,
-  },
-  {
-    label: "GitHub",
-    href: "https://github.com/Visheshjha11",
-    icon: SiGithub,
-  },
-  {
-    label: "SubStack",
-    href: "https://substack.com/@visheshjha11",
-    icon: SiSubstack,
-  },
-  {
-    label: "YouTube",
-    href: "https://yt.cool/IGIVBF",
-    icon: SiYoutube,
-  },
-  {
-    label: "Email",
-    href: "https://mail.google.com/mail/?view=cm&fs=1&to=visheshjha456@gmail.com",
-    icon: SiGmail,
-  },
-];
-
+import BlogHeader from "../components/BlogHeader";
+import Contact from "../components/Contact";
 import { BLOG_POSTS } from "../blogdata";
 
 // const ALL_TAGS = [
@@ -50,27 +20,7 @@ export default function Blog() {
       <div className="min-h-screen bg-white pt-8 md:pt-12 pb-24 px-6 md:px-12 text-black relative z-10 selection:bg-black selection:text-white">
         <div className="max-w-7xl mx-auto">
           {/* Top Header */}
-          <div className="flex justify-between items-center mb-12 md:mb-16">
-            <Link to="/" className="inline-flex items-center gap-1 text-xs md:text-sm font-header font-bold tracking-widest uppercase text-black/60 hover:text-black transition-colors cursor-none">
-              <ArrowLeft className="w-4 h-4" />
-              Back to Home
-            </Link>
-
-            <div className="flex items-center gap-5">
-              {socialLinks.map(({ label, href, icon: Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-black/30 hover:text-black transition-colors cursor-none"
-                  aria-label={label}
-                >
-                  <Icon className="w-4 h-4 md:w-5 md:h-5" />
-                </a>
-              ))}
-            </div>
-          </div>
+          <BlogHeader backLink="/" backLabel="Back to Home" />
 
           {/* Tags */}
           {/* <div className="flex flex-wrap gap-2 mb-20">
@@ -142,6 +92,7 @@ export default function Blog() {
           </div>
         </div>
       </div>
+      <Contact />
     </SmoothScroll>
   );
 }

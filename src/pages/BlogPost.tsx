@@ -2,18 +2,11 @@ import { useEffect, useState, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, List } from "lucide-react";
 import SmoothScroll from "../components/SmoothScroll";
+import ReadingProgress from "../components/ReadingProgress";
+import BlogHeader from "../components/BlogHeader";
+import Contact from "../components/Contact";
 import { motion } from "motion/react";
 import { BLOG_POSTS } from "../blogdata";
-import { FaLinkedin } from "react-icons/fa";
-import { SiGithub, SiSubstack, SiYoutube, SiGmail } from "react-icons/si";
-
-const socialLinks = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/visheshjha11/", icon: FaLinkedin },
-  { label: "GitHub", href: "https://github.com/Visheshjha11", icon: SiGithub },
-  { label: "SubStack", href: "https://substack.com/@visheshjha11", icon: SiSubstack },
-  { label: "YouTube", href: "https://yt.cool/IGIVBF", icon: SiYoutube },
-  { label: "Email", href: "https://mail.google.com/mail/?view=cm&fs=1&to=visheshjha456@gmail.com", icon: SiGmail },
-];
 
 export default function BlogPost() {
   const { id } = useParams();
@@ -72,6 +65,7 @@ export default function BlogPost() {
 
   return (
     <SmoothScroll>
+      <ReadingProgress headings={headings} />
       <div className="min-h-screen bg-white text-black relative pt-8 md:pt-12 pb-24 px-4 sm:px-8 md:px-12 lg:px-24 border-t border-black/10 selection:bg-black selection:text-white">
         
         {/* Table of Contents - Fixed */}
@@ -118,27 +112,8 @@ export default function BlogPost() {
         )}
 
         {/* Top Header */}
-        <div className="max-w-4xl mx-auto flex flex-row justify-between items-center mb-12 md:mb-20 relative z-10">
-          <Link to="/blog" className="inline-flex items-center gap-1 text-[0.65rem] md:text-sm font-header font-bold tracking-widest uppercase text-black/60 hover:text-black transition-colors cursor-none group whitespace-nowrap">
-            <ArrowLeft className="w-3.5 h-3.5 md:w-4 md:h-4 group-hover:-translate-x-1 transition-transform" />
-            <span className="hidden sm:inline">Back to Blog</span>
-            <span className="inline sm:hidden">Back</span>
-          </Link>
-
-          <div className="flex items-center justify-end gap-3 sm:gap-5 flex-wrap pl-4">
-            {socialLinks.map(({ label, href, icon: Icon }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                className="text-black/30 hover:text-black transition-colors cursor-none"
-                aria-label={label}
-              >
-                <Icon className="w-4 h-4 md:w-5 md:h-5" />
-              </a>
-            ))}
-          </div>
+        <div className="max-w-4xl mx-auto">
+          <BlogHeader backLink="/blog" backLabel="Back to Blog" />
         </div>
         
         <motion.div 
@@ -185,6 +160,7 @@ export default function BlogPost() {
           </div>
         </motion.div>
       </div>
+      <Contact />
     </SmoothScroll>
   );
 }
