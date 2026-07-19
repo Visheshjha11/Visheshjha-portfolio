@@ -69,7 +69,7 @@ export default function Hero() {
                   <div className="w-full h-full bg-black rounded-[inherit]" />
                 </motion.span>
               </span>
-              <span className="hero-headline-accent">Matter
+              <span className="hero-headline-accent">StandOut
                   <svg
                     className="hero-circle-svg"
                     viewBox="0 0 120 45"
@@ -107,7 +107,7 @@ export default function Hero() {
                   <div className="w-full h-full bg-black rounded-[inherit]" />
                 </motion.span>
               </span>
-              <span className="hero-headline-accent">Matter
+              <span className="hero-headline-accent">StandOut
                   <svg
                     className="hero-circle-svg"
                     viewBox="0 0 120 45"

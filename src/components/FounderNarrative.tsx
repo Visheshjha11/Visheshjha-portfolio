@@ -488,10 +488,10 @@ export default function FounderNarrative() {
         <div className="skills-section relative z-20 bg-[#0a0a0a] min-h-[100svh] flex flex-col justify-center py-20 w-full overflow-hidden">
           
           <div className="flex-1" />
-          <div className="w-full flex items-center justify-center py-16 md:py-24">
+          <div className="w-full py-19 md:py-29">
             <FlowingMenu items={techItems} />
           </div>
-          <div className="mt-auto pb-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 w-full">
+          <div className="mt-auto pb-10 flex flex-col items-center justify-center gap-3 sm:gap-6 w-full text-center px-4">
             <span className="text-[0.65rem] sm:text-xs md:text-sm font-header font-bold tracking-[0.35em] uppercase text-white/70">
               EDUCATION://
             </span>

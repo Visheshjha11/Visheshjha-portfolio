@@ -417,7 +417,7 @@ export default function CapsulePortal() {
                   style={{ background: "transparent" }}
                 />
                 <span ref={mobileWorkRef} className="hero-headline-accent">
-                  Matter
+                  StandOut
                   <svg
                     className="hero-circle-svg"
                     viewBox="0 0 120 45"
@@ -451,7 +451,7 @@ export default function CapsulePortal() {
                   style={{ background: "transparent" }}
                 />
                 <span ref={desktopWorkRef} className="hero-headline-accent">
-                  Matter
+                  StandOut
                   <svg
                     className="hero-circle-svg"
                     viewBox="0 0 120 45"
