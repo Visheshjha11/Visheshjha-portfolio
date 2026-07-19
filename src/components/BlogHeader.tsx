@@ -18,7 +18,7 @@ interface BlogHeaderProps {
 
 export default function BlogHeader({ backLink, backLabel }: BlogHeaderProps) {
   return (
-    <header className="w-full flex flex-row justify-between items-center mb-12 md:mb-16 relative z-10 gap-4 flex-wrap">
+    <header className="w-full flex flex-row justify-between items-center mb-8 md:mb-16 relative z-10 gap-4 flex-wrap">
       <Link to="/" className="text-xl md:text-2xl font-poster uppercase tracking-tight hover:opacity-70 transition-opacity cursor-none whitespace-nowrap">
         Vishesh Jha
       </Link>
@@ -26,8 +26,7 @@ export default function BlogHeader({ backLink, backLabel }: BlogHeaderProps) {
       <div className="flex items-center gap-6 md:gap-8 flex-wrap justify-end flex-grow">
         <Link to={backLink} className="inline-flex items-center gap-1 text-[0.65rem] md:text-sm font-header font-bold tracking-widest uppercase text-black/60 hover:text-black transition-colors cursor-none group whitespace-nowrap">
           <ArrowLeft className="w-3.5 h-3.5 md:w-4 md:h-4 group-hover:-translate-x-1 transition-transform" />
-          <span className="hidden sm:inline">{backLabel}</span>
-          <span className="inline sm:hidden">Back</span>
+          <span>{backLabel}</span>
         </Link>
 
         <div className="flex items-center gap-3 sm:gap-5">

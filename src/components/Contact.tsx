@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 
 export default function Contact() {
   const [visitorCount, setVisitorCount] = useState<number | null>(null);
-  const [location, setLocation] = useState<string | null>(null);
+  const [location, setLocation] = useState<string | null>(() => localStorage.getItem("visitorLocation"));
 
   useEffect(() => {
     // Fetch Visitor Count (Unique per user via localStorage)
     const hasVisited = localStorage.getItem("hasVisited");
     const counterUrl = hasVisited
-      ? "https://api.counterapi.dev/v1/visheshjha-portfolio/visits"
-      : "https://api.counterapi.dev/v1/visheshjha-portfolio/visits/up";
+      ? "https://api.counterapi.dev/v1/visheshjha-portfolio-v2/visits"
+      : "https://api.counterapi.dev/v1/visheshjha-portfolio-v2/visits/up";
 
     fetch(counterUrl)
       .then((res) => res.json())
@@ -28,11 +28,13 @@ export default function Contact() {
         if (cachedCount) {
           setVisitorCount(parseInt(cachedCount, 10));
         } else {
-          setVisitorCount(11); // Fallback base number if completely blocked on first visit
+          setVisitorCount(1); // Fallback base number if completely blocked on first visit
         }
       });
 
     const fallbackToIP = () => {
+      if (localStorage.getItem("visitorLocation")) return; // Don't fetch if we already have it
+
       fetch("https://ipinfo.io/json")
         .then((res) => res.json())
         .then((data) => {
@@ -40,47 +42,21 @@ export default function Contact() {
             try {
               const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
               const countryName = regionNames.of(data.country);
-              setLocation(`${data.region}, ${countryName || data.country}`);
+              const locStr = `${data.region}, ${countryName || data.country}`;
+              setLocation(locStr);
+              localStorage.setItem("visitorLocation", locStr);
             } catch (e) {
-              setLocation(`${data.region}, ${data.country}`);
+              const locStr = `${data.region}, ${data.country}`;
+              setLocation(locStr);
+              localStorage.setItem("visitorLocation", locStr);
             }
           }
         })
         .catch(console.error);
     };
 
-    // Fetch Geolocation using HTML5 Geolocation API for exact location
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          fetch(
-            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
-          )
-            .then((res) => res.json())
-            .then((data) => {
-              const state = data.principalSubdivision;
-              const country = data.countryName;
-              if (state && country) {
-                setLocation(`${state}, ${country}`);
-              } else {
-                fallbackToIP();
-              }
-            })
-            .catch((err) => {
-              console.error("Reverse geocode failed:", err);
-              fallbackToIP();
-            });
-        },
-        (error) => {
-          console.error("Error getting location:", error);
-          fallbackToIP();
-        },
-        { timeout: 5000 } // 5 second timeout if user ignores prompt
-      );
-    } else {
-      fallbackToIP();
-    }
+    // Fetch Geolocation via IP (silent, no permission prompt)
+    fallbackToIP();
   }, []);
 
   const visitorStatsUI = (

@@ -17,10 +17,10 @@ export default function Blog() {
 
   return (
     <SmoothScroll>
-      <div className="min-h-screen bg-white pt-8 md:pt-12 pb-24 px-6 md:px-12 text-black relative z-10 selection:bg-black selection:text-white">
+      <div className="min-h-screen bg-white pt-8 md:pt-12 pb-24 px-4 sm:px-6 md:px-12 text-black relative z-10 selection:bg-black selection:text-white">
         <div className="max-w-7xl mx-auto">
           {/* Top Header */}
-          <BlogHeader backLink="/" backLabel="Back to Home" />
+          <BlogHeader backLink="/" backLabel="Home" />
 
           {/* Tags */}
           {/* <div className="flex flex-wrap gap-2 mb-20">
@@ -32,7 +32,7 @@ export default function Blog() {
           </div> */}
 
           {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 md:gap-x-16 md:gap-y-16">
             {BLOG_POSTS.map((post, idx) => (
               <motion.div 
                 key={post.id}

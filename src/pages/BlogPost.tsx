@@ -113,7 +113,7 @@ export default function BlogPost() {
 
         {/* Top Header */}
         <div className="max-w-4xl mx-auto">
-          <BlogHeader backLink="/blog" backLabel="Back to Blog" />
+          <BlogHeader backLink="/blog" backLabel="Blog" />
         </div>
         
         <motion.div 
@@ -155,7 +155,7 @@ export default function BlogPost() {
 
           <div className="mt-24 pt-12 border-t border-black/10 flex justify-center">
             <Link to="/blog" className="inline-flex items-center gap-2 text-sm font-header font-bold tracking-widest uppercase text-black hover:text-black/60 transition-colors cursor-none group px-6 py-3 border border-black/20 hover:border-black/50 rounded-full">
-              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Blog
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Blog
             </Link>
           </div>
         </motion.div>

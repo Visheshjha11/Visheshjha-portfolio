@@ -384,11 +384,11 @@ export default function CapsulePortal() {
           transition={{ delay: 0.4, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="hero-role-tag hero-role-tag--top"
         >
-          <span className="hero-meta-label hero-meta-label--left">Portfolio</span>
+          <span className="hero-meta-label hero-meta-label--left">Vishesh Jha</span>
           <div className="hero-role-line" />
           <p className="hero-role-text">Full Stack Developer</p>
           <div className="hero-role-line" />
-          <span className="hero-meta-label hero-meta-label--right">Vishesh Jha</span>
+          <span className="hero-meta-label hero-meta-label--right">VJ</span>
         </motion.div>
 
         {/* Main Content */}

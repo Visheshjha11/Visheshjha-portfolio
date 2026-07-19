@@ -1,10 +1,18 @@
 import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLDivElement>(null);
   const [isHoveringImage, setIsHoveringImage] = useState(false);
   const [isHoveringClickable, setIsHoveringClickable] = useState(false);
+  const location = useLocation();
+
+  // Reset cursor states on route change
+  useEffect(() => {
+    setIsHoveringImage(false);
+    setIsHoveringClickable(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     const dot = dotRef.current;

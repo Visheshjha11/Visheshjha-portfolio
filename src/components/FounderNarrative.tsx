@@ -297,22 +297,43 @@ export default function FounderNarrative() {
       const skillSection = container.querySelector('.skills-section');
       const skillItems = container.querySelectorAll(".menu__item");
 
-      if (skillSection && skillItems.length) {
-        gsap.fromTo(skillItems,
-          { opacity: 0, y: 15 },
-          {
+      if (skillSection) {
+        // Aesthetic Transition Animation for Logo Loop Section
+        gsap.fromTo(skillSection, 
+          { 
+            clipPath: 'inset(15% 10% 15% 10% round 32px)',
+            opacity: 0.5 
+          },
+          { 
+            clipPath: 'inset(0% 0% 0% 0% round 0px)',
             opacity: 1,
-            y: 0,
-            stagger: 0.1,
-            duration: 0.8,
-            ease: "power2.out",
+            ease: "power2.inOut",
             scrollTrigger: {
               trigger: skillSection,
-              start: "top 70%",
-              toggleActions: "play none none reverse",
+              start: "top 95%",
+              end: "top 30%",
+              scrub: 1.5,
             }
           }
         );
+
+        if (skillItems.length) {
+          gsap.fromTo(skillItems,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              stagger: 0.15,
+              duration: 1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: skillSection,
+                start: "top 60%",
+                toggleActions: "play none none reverse",
+              }
+            }
+          );
+        }
       }
     });
 
