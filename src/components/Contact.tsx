@@ -6,15 +6,48 @@ export default function Contact() {
   const [location, setLocation] = useState<string | null>(null);
 
   useEffect(() => {
-    // Fetch Visitor Count
-    fetch("https://api.counterapi.dev/v1/visheshjha-portfolio/visits/up")
+    // Fetch Visitor Count (Unique per user via localStorage)
+    const hasVisited = localStorage.getItem("hasVisited");
+    const counterUrl = hasVisited
+      ? "https://api.counterapi.dev/v1/visheshjha-portfolio/visits"
+      : "https://api.counterapi.dev/v1/visheshjha-portfolio/visits/up";
+
+    fetch(counterUrl)
       .then((res) => res.json())
       .then((data) => {
-        if (data.count) {
+        if (typeof data.count === "number") {
           setVisitorCount(data.count);
+          localStorage.setItem("visitorCount", data.count.toString());
+          if (!hasVisited) localStorage.setItem("hasVisited", "true");
         }
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error("Counter API failed, falling back to local storage:", err);
+        // Fallback if adblocker blocks counterapi
+        const cachedCount = localStorage.getItem("visitorCount");
+        if (cachedCount) {
+          setVisitorCount(parseInt(cachedCount, 10));
+        } else {
+          setVisitorCount(11); // Fallback base number if completely blocked on first visit
+        }
+      });
+
+    const fallbackToIP = () => {
+      fetch("https://ipinfo.io/json")
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.region && data.country) {
+            try {
+              const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
+              const countryName = regionNames.of(data.country);
+              setLocation(`${data.region}, ${countryName || data.country}`);
+            } catch (e) {
+              setLocation(`${data.region}, ${data.country}`);
+            }
+          }
+        })
+        .catch(console.error);
+    };
 
     // Fetch Geolocation using HTML5 Geolocation API for exact location
     if ("geolocation" in navigator) {
@@ -26,29 +59,40 @@ export default function Contact() {
           )
             .then((res) => res.json())
             .then((data) => {
-              const city = data.city || data.locality;
+              const state = data.principalSubdivision;
               const country = data.countryName;
-              if (city && country) {
-                setLocation(`${city}, ${country}`);
+              if (state && country) {
+                setLocation(`${state}, ${country}`);
+              } else {
+                fallbackToIP();
               }
             })
-            .catch(console.error);
+            .catch((err) => {
+              console.error("Reverse geocode failed:", err);
+              fallbackToIP();
+            });
         },
         (error) => {
           console.error("Error getting location:", error);
-          // Fallback to IP based if they deny permission or it fails
-          fetch("https://freeipapi.com/api/json")
-            .then((res) => res.json())
-            .then((data) => {
-              if (data.cityName && data.countryName) {
-                setLocation(`${data.cityName}, ${data.countryName}`);
-              }
-            })
-            .catch(console.error);
-        }
+          fallbackToIP();
+        },
+        { timeout: 5000 } // 5 second timeout if user ignores prompt
       );
+    } else {
+      fallbackToIP();
     }
   }, []);
+
+  const visitorStatsUI = (
+    <div className="flex flex-col text-[#666666] font-sans text-sm md:text-base font-normal tracking-normal normal-case mb-4 md:mb-6">
+      {visitorCount !== null && (
+        <span className="mb-2 md:mb-4">{visitorCount.toLocaleString()} visitors so far</span>
+      )}
+      {location && (
+        <span>You're visiting from {location}</span>
+      )}
+    </div>
+  );
 
   return (
     <section className="relative w-full min-h-screen bg-[#FAFAFA] text-[#0a0a0a] p-6 md:p-12 font-sans overflow-hidden flex flex-col">
@@ -74,8 +118,11 @@ export default function Contact() {
             </div>
           </motion.div>
 
-          <div className="hidden md:block absolute bottom-0 left-0 text-[10px] md:text-xs font-bold tracking-widest uppercase pb-2">
-            &copy;VISHESH
+          <div className="hidden md:flex flex-col absolute bottom-0 left-0 pb-2">
+            {visitorStatsUI}
+            <div className="text-[10px] md:text-xs font-bold tracking-widest uppercase">
+              &copy;VISHESH
+            </div>
           </div>
         </div>
 
@@ -101,20 +148,15 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Visitor Stats */}
-          <div className="flex flex-col text-[#666666] font-sans text-sm md:text-base font-normal tracking-normal normal-case mt-12 md:mt-16">
-            {visitorCount !== null && (
-              <span className="mb-4">{visitorCount.toLocaleString()} visitors so far</span>
-            )}
-            {location && (
-              <span>You're visiting from {location}</span>
-            )}
-          </div>
-
-          {/* Designer & Mobile Copyright */}
-          <div className="text-[10px] md:text-xs font-bold tracking-widest uppercase mt-auto md:absolute md:bottom-0 md:left-12 lg:left-16 pb-2 flex justify-between md:justify-start w-full">
-            <span className="md:hidden">&copy;VISHESH JHA</span>
-            <span>THINK.BUILD.SHIP</span>
+          {/* Designer & Mobile Copyright & Mobile Stats */}
+          <div className="mt-auto md:absolute md:bottom-0 md:left-12 lg:left-16 pb-2 w-full">
+            <div className="md:hidden">
+              {visitorStatsUI}
+            </div>
+            <div className="flex justify-between md:justify-start text-[10px] md:text-xs font-bold tracking-widest uppercase">
+              <span className="md:hidden">&copy;VISHESH JHA</span>
+              <span>THINK.BUILD.SHIP</span>
+            </div>
           </div>
 
         </div>
