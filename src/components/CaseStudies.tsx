@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
 import saarthiImage from "../assets/Saarthicover.webp";
 import prepxImage from "../assets/PrepX_main.webp";
+// import velocitydevImage from "../assets/velocitydev-cover.webp";
 import { 
   saarthiRole, 
   saarthiTimeline, 
@@ -13,24 +14,32 @@ import {
   saarthiSections 
 } from "../data/saarthiContent";
 import {
+  velocitydevRole,
+  velocitydevTimeline,
+  velocitydevPlatform,
+  velocitydevLiveWebsite,
+  velocitydevSections,
+} from "../data/velocitydevContent";
+import {
   prepxRole,
   prepxTimeline,
   prepxPlatform,
   prepxLiveWebsite,
   prepxSections
 } from "../data/prepxContent";
-import {
-  pulseRole,
-  pulseTimeline,
-  pulsePlatform,
-  pulseSections
-} from "../data/pulseContent";
-import {
-  veronicaRole,
-  veronicaTimeline,
-  veronicaPlatform,
-  veronicaSections
-} from "../data/veronicaContent";
+
+// import {
+//   pulseRole,
+//   pulseTimeline,
+//   pulsePlatform,
+//   pulseSections
+// } from "../data/pulseContent";
+// import {
+//   veronicaRole,
+//   veronicaTimeline,
+//   veronicaPlatform,
+//   veronicaSections
+// } from "../data/veronicaContent";
 
 export type ProjectContentSection = {
   title: string;
@@ -69,6 +78,31 @@ export const projects: Project[] = [
     sections: saarthiSections
   },
   {
+  id: "velocitydev",
+  num: "03",
+  title: "VelocityDev",
+  tags: [
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "Node.js",
+    "MongoDB"
+  ],
+  description: (
+    <>
+      A developer-first typing platform engineered around interaction quality,
+      cognitive flow, and frictionless coding instead of traditional typing
+      speed.
+    </>
+  ),
+  image: "",
+  role: velocitydevRole,
+  timeline: velocitydevTimeline,
+  platform: velocitydevPlatform,
+  liveWebsite: velocitydevLiveWebsite,
+  sections: velocitydevSections
+},
+  {
     id: "prepx",
     num: "02",
     title: "PrepX",
@@ -81,30 +115,30 @@ export const projects: Project[] = [
     liveWebsite: prepxLiveWebsite,
     sections: prepxSections
   },
-  {
-    id: "pulse",
-    num: "03",
-    title: "PULSE",
-    tags: ["ESP32", "React", "Node.js", "MongoDB", "WebSockets"],
-    description: <>A smart wearable ecosystem that continuously monitors health, detects emergencies, and instantly alerts trusted contacts when critical situations occur.</>,
-    image: "",
-    role: pulseRole,
-    timeline: pulseTimeline,
-    platform: pulsePlatform,
-    sections: pulseSections
-  },
-  {
-    id: "veronica",
-    num: "04",
-    title: "Veronica",
-    tags: ["Python", "NLP", "Selenium", "Flask"],
-    description: <>A Python-powered autonomous AI assistant capable of understanding natural language, controlling desktop applications, executing multi-step workflows, and interacting with the real world through voice.</>,
-    image: "",
-    role: veronicaRole,
-    timeline: veronicaTimeline,
-    platform: veronicaPlatform,
-    sections: veronicaSections
-  }
+  // {
+  //   id: "pulse",
+  //   num: "03",
+  //   title: "PULSE",
+  //   tags: ["ESP32", "React", "Node.js", "MongoDB", "WebSockets"],
+  //   description: <>A smart wearable ecosystem that continuously monitors health, detects emergencies, and instantly alerts trusted contacts when critical situations occur.</>,
+  //   image: "",
+  //   role: pulseRole,
+  //   timeline: pulseTimeline,
+  //   platform: pulsePlatform,
+  //   sections: pulseSections
+  // },
+  // {
+  //   id: "veronica",
+  //   num: "04",
+  //   title: "Veronica",
+  //   tags: ["Python", "NLP", "Selenium", "Flask"],
+  //   description: <>A Python-powered autonomous AI assistant capable of understanding natural language, controlling desktop applications, executing multi-step workflows, and interacting with the real world through voice.</>,
+  //   image: "",
+  //   role: veronicaRole,
+  //   timeline: veronicaTimeline,
+  //   platform: veronicaPlatform,
+  //   sections: veronicaSections
+  // }
 ];
 
 export default function CaseStudies() {
