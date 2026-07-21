@@ -14,7 +14,7 @@ export const velocitydevTimeline = "July 2026";
 export const velocitydevPlatform = "Web";
 
 export const velocitydevLiveWebsite =
-  "https://velocitydev-v1.vercel.app";
+  "https://velocitydev.visheshjha.me";
 export const velocitydevSections = [
   {
     title: "It Started With One Question",
@@ -64,7 +64,7 @@ export const velocitydevSections = [
   },
 
   {
-    title: "The Prototype That Failed",
+    title: "THE PROTOTYPE",
     content: (
       <>
         The first version looked impressive.
@@ -84,8 +84,7 @@ export const velocitydevSections = [
         <br />
         Yet after five minutes of using it, I wanted to close the tab.
         <br />
-        <br />
-        It wasn't broken.
+
         <br />
         It simply didn't feel right.
       </>
@@ -198,8 +197,8 @@ export const velocitydevSections = [
         Because people rarely remember how many features a product had.
         <br />
         <br />
-        They remember how it felt on a random Tuesday night, when everything
-        disappeared and they were completely immersed in their work.
+        They remember how it felt on a night, when everything
+        disappeared and they got immersed in their work.
       </>
     )
   }
