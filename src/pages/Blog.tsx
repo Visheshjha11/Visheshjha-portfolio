@@ -17,7 +17,7 @@ export default function Blog() {
 
   return (
     <SmoothScroll>
-      <div className="min-h-screen bg-white pt-8 md:pt-12 pb-24 px-4 sm:px-6 md:px-12 text-black relative z-10 selection:bg-black selection:text-white">
+      <div className="min-h-screen bg-[#F9F8F6] pt-8 md:pt-12 pb-24 px-4 sm:px-6 md:px-12 text-[#2A2A2A] relative z-10 selection:bg-[#2A2A2A] selection:text-white">
         <div className="max-w-7xl mx-auto">
           {/* Top Header */}
           <BlogHeader backLink="/" backLabel="Home" />

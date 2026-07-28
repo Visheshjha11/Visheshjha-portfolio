@@ -24,7 +24,7 @@ export default function BlogHeader({ backLink, backLabel }: BlogHeaderProps) {
       </Link>
 
       <div className="flex items-center gap-6 md:gap-8 flex-wrap justify-end flex-grow">
-        <Link to={backLink} className="inline-flex items-center gap-1 text-[0.65rem] md:text-sm font-header font-bold tracking-widest uppercase text-black/60 hover:text-black transition-colors cursor-none group whitespace-nowrap">
+        <Link to={backLink} className="inline-flex items-center gap-1 text-[0.65rem] md:text-sm font-header font-bold tracking-widest uppercase opacity-60 hover:opacity-100 transition-opacity cursor-none group whitespace-nowrap">
           <ArrowLeft className="w-3.5 h-3.5 md:w-4 md:h-4 group-hover:-translate-x-1 transition-transform" />
           <span>{backLabel}</span>
         </Link>
@@ -36,7 +36,7 @@ export default function BlogHeader({ backLink, backLabel }: BlogHeaderProps) {
               href={href}
               target="_blank"
               rel="noreferrer"
-              className="text-black/30 hover:text-black transition-colors cursor-none"
+              className="opacity-30 hover:opacity-100 transition-opacity cursor-none"
               aria-label={label}
             >
               <Icon className="w-4 h-4 md:w-5 md:h-5" />

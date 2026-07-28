@@ -177,7 +177,7 @@ export default function FounderNarrative() {
           // Animate background color on second step
           if (i === 1) {
             tl.to(container, {
-              "--bg-color": "#F3F4F4",
+              "--bg-color": "#fcfcfb",
               "--text-primary": "#000000",
               "--text-accent": "rgba(0, 0, 0, 0.4)",
               "--line-color": "rgba(0, 0, 0, 0.15)",
@@ -233,7 +233,7 @@ export default function FounderNarrative() {
       // Background Color Animation
       if (block2Ref.current) {
         gsap.to(container, {
-          "--bg-color": "#F3F4F4",
+          "--bg-color": "#fcfcfb",
           "--text-primary": "#000000",
           "--text-accent": "rgba(0, 0, 0, 0.4)",
           "--line-color": "rgba(0, 0, 0, 0.15)",

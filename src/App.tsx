@@ -8,6 +8,7 @@ const Home = lazy(() => import("./pages/Home"));
 const CaseStudy = lazy(() => import("./pages/CaseStudy"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
+const Resume = lazy(() => import("./pages/Resume"));
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -83,6 +84,7 @@ export default function App() {
                   <Route path="/project/:id" element={<CaseStudy />} />
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:id" element={<BlogPost />} />
+                  <Route path="/resume" element={<Resume />} />
                 </Routes>
               </Suspense>
             )}

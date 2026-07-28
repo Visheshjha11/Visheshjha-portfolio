@@ -66,7 +66,7 @@ export default function BlogPost() {
   return (
     <SmoothScroll>
       <ReadingProgress headings={headings} />
-      <div className="min-h-screen bg-white text-black relative pt-8 md:pt-12 pb-24 px-4 sm:px-8 md:px-12 lg:px-24 border-t border-black/10 selection:bg-black selection:text-white">
+      <div className="min-h-screen bg-[#F9F8F6] text-[#2A2A2A] relative pt-8 md:pt-12 pb-24 px-4 sm:px-8 md:px-12 lg:px-24 border-t border-black/10 selection:bg-[#2A2A2A] selection:text-white">
         
         {/* Table of Contents - Fixed */}
         {headings.length > 0 && (

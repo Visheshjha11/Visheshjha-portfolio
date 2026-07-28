@@ -547,8 +547,9 @@ export default function CapsulePortal() {
             </div>
             <div className="hero-bottom-nav-right">
               <Link to="/blog">Blog</Link>
+              <Link to="/resume">RESUME</Link>
               <a href="#about">INFO</a>
-              <a href="#contact">CONTACT</a>
+              
             </div>
           </div>
         </motion.div>

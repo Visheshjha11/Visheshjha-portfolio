@@ -269,7 +269,7 @@ export default function CaseStudies() {
   }, []);
 
   return (
-    <section id="work" ref={sectionRef} className="relative bg-[#F3F4F4] lg:overflow-hidden">
+    <section id="work" ref={sectionRef} className="relative bg-[#fcfcfb] lg:overflow-hidden">
       <div ref={contentWrapperRef} className="flex flex-col lg:h-screen will-change-transform">
         <div ref={innerRef} className="flex flex-col w-full h-full">
           {/* Scrolling content - Fixed height collapse by adding flex flex-col */}
@@ -281,7 +281,7 @@ export default function CaseStudies() {
             {projects.map((project) => (
               <article
                 key={project.id}
-                className="case-card bg-[#F3F4F4] w-full lg:w-[100vw] h-auto lg:h-full lg:flex-shrink-0 relative lg:overflow-hidden flex flex-col lg:block pt-24 pb-20 lg:py-0 px-6 sm:px-12 lg:px-0 border-b border-[#0a0a0a]/10 lg:border-none"
+                className="case-card bg-[#fcfcfb] w-full lg:w-[100vw] h-auto lg:h-full lg:flex-shrink-0 relative lg:overflow-hidden flex flex-col lg:block pt-24 pb-20 lg:py-0 px-6 sm:px-12 lg:px-0 border-b border-[#0a0a0a]/10 lg:border-none"
               >
 
                 {/* ── MOBILE & TABLET LAYOUT (< lg) ── */}
@@ -406,7 +406,7 @@ export default function CaseStudies() {
         </div>
 
         {/* ── Fixed Bottom Bar with Progress (Desktop only) ── */}
-        <div className="hidden lg:flex relative bg-[#F3F4F4] z-10 flex-shrink-0 flex-col">
+        <div className="hidden lg:flex relative bg-[#fcfcfb] z-10 flex-shrink-0 flex-col">
           <div className="relative h-[3px] w-full bg-[#0a0a0a]/10 overflow-hidden">
             <div
               ref={progressRef}

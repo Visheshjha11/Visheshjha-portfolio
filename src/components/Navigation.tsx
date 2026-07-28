@@ -30,7 +30,7 @@ export default function Navigation() {
     { label: "Work", href: isHome ? "#work" : "/#work" },
     { label: "Blog", href: "/blog" },
     { label: "About", href: isHome ? "#about" : "/#about" },
-    { label: "Contact", href: isHome ? "#contact" : "/#contact" },
+    { label: "Resume", href: "/resume" },
   ];
 
   return (
