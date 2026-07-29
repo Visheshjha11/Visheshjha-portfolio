@@ -80,7 +80,7 @@ export const projects: Project[] = [
   {
   id: "velocitydev",
   num: "03",
-  title: "VelocityDev",
+  title: "Velocity Dev",
   tags: [
     "React",
     "TypeScript",
@@ -417,7 +417,7 @@ export default function CaseStudies() {
 
           <div className="px-16 py-5 flex justify-between items-center w-full">
             <span ref={counterRef} className="text-base font-poster font-bold text-[#0a0a0a]/80 tracking-wide">
-              [ 01 / {String(projects.length).padStart(2, "0")} ]
+              [ 01 / {String(projects.length).padStart(2, "0")} ] 
             </span>
 
             <a href="https://github.com/Visheshjha11" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[0.6rem] font-header font-bold tracking-[0.3em] uppercase text-[#0a0a0a]/50 hover:text-[#0a0a0a] transition-colors group/all">

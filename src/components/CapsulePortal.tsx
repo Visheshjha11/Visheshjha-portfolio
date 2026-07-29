@@ -568,18 +568,18 @@ export default function CapsulePortal() {
           <div className="capsule-metric-wrapper">
             <div ref={metric1Ref} className="capsule-metric">
               <div className="capsule-metric__line" />
-              <span className="capsule-metric__text">6+ Project Built</span>
-              <span className="capsule-metric__sub">Across Web & App</span>
+              <span className="capsule-metric__text">Building</span>
+              <span className="capsule-metric__sub">AI-First Software</span>
             </div>
             <div ref={metric2Ref} className="capsule-metric">
               <div className="capsule-metric__line" />
-              <span className="capsule-metric__text">3 FLAGSHIP PRODUCTS</span>
-              <span className="capsule-metric__sub">Currently Maintained</span>
+              <span className="capsule-metric__text">Open To</span>
+              <span className="capsule-metric__sub">New Oppurtunities</span>
             </div>
             <div ref={metric3Ref} className="capsule-metric">
               <div className="capsule-metric__line" />
-              <span className="capsule-metric__text">2024-CONTINUOUSLY SHIPPING</span>
-              <span className="capsule-metric__sub">Learning by Building</span>
+              <span className="capsule-metric__text">CURRENTLY</span>
+              <span className="capsule-metric__sub">Training ML Models</span>
             </div>
           </div>
         </div>
