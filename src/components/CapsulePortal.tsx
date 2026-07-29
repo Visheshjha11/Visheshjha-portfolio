@@ -213,13 +213,10 @@ export default function CapsulePortal() {
 
         // ── Phase 2: Capsule expands to fullscreen ──
         tl.to(
-          clip,
+          capsuleLayer,
           {
-            top: 0, right: 0, bottom: 0, left: 0, radius: 0,
+            clipPath: "inset(0px 0px 0px 0px round 0px)",
             duration: 0.7, ease: "power2.inOut",
-            onUpdate: () => {
-              capsuleLayer.style.clipPath = `inset(${clip.top}px ${clip.right}px ${clip.bottom}px ${clip.left}px round ${clip.radius}px)`;
-            },
           },
           0
         );
@@ -307,13 +304,10 @@ export default function CapsulePortal() {
 
         // Capsule expands
         tl.to(
-          clip,
+          capsuleLayer,
           {
-            top: 0, right: 0, bottom: 0, left: 0, radius: 0,
+            clipPath: "inset(0px 0px 0px 0px round 0px)",
             duration: 0.7, ease: "power2.inOut",
-            onUpdate: () => {
-              capsuleLayer.style.clipPath = `inset(${clip.top}px ${clip.right}px ${clip.bottom}px ${clip.left}px round ${clip.radius}px)`;
-            },
           },
           0
         );
@@ -358,7 +352,7 @@ export default function CapsulePortal() {
           <Dither
             waveColor={[0.85, 0.85, 0.85]}
             disableAnimation={false}
-            enableMouseInteraction={true}
+            enableMouseInteraction={typeof window !== 'undefined' ? window.innerWidth >= 768 : true}
             mouseRadius={0.3}
             colorNum={3}
             waveAmplitude={0.25}

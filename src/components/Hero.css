@@ -4,7 +4,7 @@
 
 .hero-section {
   position: relative;
-  height: 100svh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -191,7 +191,12 @@
 
 .hero-headline--mobile {
   display: inline-block;
-  font-size: clamp(3.5rem, 16vw, 7rem);
+  font-size: clamp(3.2rem, 23vw, 7rem);
+}
+
+.hero-headline--mobile .hero-headline-line--split {
+  font-size: 0.52em;
+  margin-top: 0.25em;
 }
 
 @media (min-width: 768px) {
@@ -477,6 +482,11 @@
   .hero-bottom-nav-right {
     justify-self: end; /* Align to the right-side grid edge */
   }
+}
+
+.hero-bottom-nav a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .hero-bottom-nav a {

@@ -356,7 +356,7 @@ export default function FounderNarrative() {
       <div className="relative z-10">
 
         {/* ── MOBILE: STICKY NARRATIVE PRESENTATION ── */}
-        <div className="md:hidden narrative-pin h-[100svh] w-full relative overflow-hidden flex items-center justify-center">
+        <div className="md:hidden narrative-pin h-[100vh] w-full relative overflow-hidden flex items-center justify-center">
 
           {/* Step 1: Headline */}
           <div className="narrative-step absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
@@ -492,7 +492,7 @@ export default function FounderNarrative() {
         </div>
 
         {/* ── SKILLS SECTION (Normal Scroll, Both Devices) ── */}
-        <div className="skills-section relative z-20 bg-[#0a0a0a] min-h-[100svh] flex flex-col justify-center py-20 w-full overflow-hidden">
+        <div className="skills-section relative z-20 bg-[#0a0a0a] min-h-[100vh] flex flex-col justify-center py-20 w-full overflow-hidden">
           
           <div className="flex-1" />
           <div className="w-full py-19 md:py-29">

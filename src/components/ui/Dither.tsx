@@ -251,6 +251,7 @@ function DitheredWaves({
     if (!enableMouseInteraction) return;
 
     const handleMouseMove = (e: MouseEvent) => {
+      if (typeof window !== 'undefined' && window.innerWidth < 768) return;
       const canvas = gl.domElement;
       const rect = canvas.getBoundingClientRect();
       const dpr = gl.getPixelRatio();
@@ -268,7 +269,7 @@ function DitheredWaves({
     material.uniforms.waveSpeed.value = waveSpeed;
     material.uniforms.waveFrequency.value = waveFrequency;
     material.uniforms.waveAmplitude.value = waveAmplitude;
-    material.uniforms.enableMouseInteraction.value = enableMouseInteraction ? 1 : 0;
+    material.uniforms.enableMouseInteraction.value = (enableMouseInteraction && (typeof window !== 'undefined' && window.innerWidth >= 768)) ? 1 : 0;
     material.uniforms.mouseRadius.value = mouseRadius;
   });
 

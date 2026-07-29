@@ -11,9 +11,7 @@ export default function Hero() {
         <Dither
           waveColor={[0.85, 0.85, 0.85]}
           disableAnimation={false}
-          enableMouseInteraction={true}
-
-          
+          enableMouseInteraction={typeof window !== 'undefined' ? window.innerWidth >= 768 : true}
           mouseRadius={0.3}
           colorNum={3}
           waveAmplitude={0.25}
