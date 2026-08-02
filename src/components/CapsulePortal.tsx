@@ -378,11 +378,11 @@ export default function CapsulePortal() {
           transition={{ delay: 0.4, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="hero-role-tag hero-role-tag--top"
         >
-          <span className="hero-meta-label hero-meta-label--left">Vishesh Jha</span>
+          <span className="hero-meta-label hero-meta-label--left">Full Stack Developer</span>
           <div className="hero-role-line" />
-          <p className="hero-role-text">Full Stack Developer</p>
+          <p className="hero-role-text">Vishesh Jha</p>
           <div className="hero-role-line" />
-          <span className="hero-meta-label hero-meta-label--right">VJ</span>
+          <span className="hero-meta-label hero-meta-label--right">BUILD · SHIP</span>
         </motion.div>
 
         {/* Main Content */}
@@ -484,8 +484,8 @@ export default function CapsulePortal() {
             transition={{ delay: 1.0, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="hero-subtext"
           >
-            Full-stack developer combining Computer Science and Business to
-            build high-performance digital products.
+            Crafting digital products with clean engineering, thoughtful design 
+            and an obsession for the details that matter.
           </motion.p>
         </div>
 
@@ -497,7 +497,7 @@ export default function CapsulePortal() {
           transition={{ delay: 1.5, duration: 1 }}
           className="hero-side-label hero-side-label--left"
         >
-          <span>Modern DEV</span>
+          <span>CRAFTED</span>
         </motion.div>
         <motion.div
           ref={sideLabelRightRef}
@@ -506,7 +506,7 @@ export default function CapsulePortal() {
           transition={{ delay: 1.5, duration: 1 }}
           className="hero-side-label hero-side-label--right"
         >
-          <span>2026</span>
+          <span>PRODUCT ENGINEER</span>
         </motion.div>
 
         {/* Bottom Nav */}
@@ -541,9 +541,8 @@ export default function CapsulePortal() {
             </div>
             <div className="hero-bottom-nav-right">
               <Link to="/blog">Blog</Link>
-              <Link to="/resume">RESUME</Link>
-              <a href="#about">INFO</a>
-              
+              <Link to="/resume">Resume</Link>
+              <a href="#about">About</a>
             </div>
           </div>
         </motion.div>
