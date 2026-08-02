@@ -5,7 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
 import saarthiImage from "../assets/Saarthicover.webp";
 import prepxImage from "../assets/PrepX_main.webp";
-// import velocitydevImage from "../assets/velocitydev-cover.webp";
+import velocitydevImage from "../assets/velocitydev-cover.png";
 import { 
   saarthiRole, 
   saarthiTimeline, 
@@ -79,7 +79,7 @@ export const projects: Project[] = [
   },
   {
   id: "velocitydev",
-  num: "03",
+  num: "02",
   title: "Velocity Dev",
   tags: [
     "React",
@@ -95,7 +95,7 @@ export const projects: Project[] = [
       speed.
     </>
   ),
-  image: "",
+  image: velocitydevImage,
   role: velocitydevRole,
   timeline: velocitydevTimeline,
   platform: velocitydevPlatform,
@@ -104,7 +104,7 @@ export const projects: Project[] = [
 },
   {
     id: "prepx",
-    num: "02",
+    num: "03",
     title: "PrepX",
     tags: ["Next.js", "React", "TypeScript", "Node.js", "MongoDB", "OpenAI"],
     description: <>An intelligent examination platform that transforms preparation into a personalized, data-driven learning experience.</>,
