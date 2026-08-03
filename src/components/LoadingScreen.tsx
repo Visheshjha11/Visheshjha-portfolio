@@ -6,14 +6,16 @@ export default function LoadingScreen({
 }: {
   onComplete: () => void;
 }) {
-
-
   useEffect(() => {
     // Increased to 2500ms for a more cinematic feel
-    const timerPromise = new Promise(resolve => setTimeout(resolve, 2500));
-    
-    // Also ensure fonts are fully loaded so layout measurements in CapsulePortal are perfect
-    const fontsPromise = document.fonts ? document.fonts.ready : Promise.resolve();
+    const timerPromise = new Promise((resolve) =>
+      setTimeout(resolve, 2500)
+    );
+
+    // Ensure fonts are loaded before completing
+    const fontsPromise = document.fonts
+      ? document.fonts.ready
+      : Promise.resolve();
 
     Promise.all([timerPromise, fontsPromise]).then(() => {
       onComplete();
@@ -21,62 +23,48 @@ export default function LoadingScreen({
   }, [onComplete]);
 
   return (
-    <div className="relative w-full h-full flex flex-col justify-between bg-[#F5F5F5] p-6 md:p-12 z-[100] text-[#0a0a0a]">
-      {/* Top Header */}
-      <div className="w-full flex justify-between items-start font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-[#0a0a0a]/50">
-        <motion.p
-          initial={{ opacity: 1 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-        >
-          VJ
-        </motion.p>
-        <motion.p
-          initial={{ opacity: 1 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="text-right"
-        >
-          System
-          <br />
-          Initialization
-        </motion.p>
-      </div>
-
+    <div className="relative flex h-full w-full items-center justify-center bg-[#F5F5F5] p-6 md:p-12 z-[100] text-[#0a0a0a]">
       {/* Center Layout */}
-      <div className="flex flex-col items-center justify-center gap-10 w-full">
+      <div className="flex w-full max-w-6xl flex-col items-center justify-center">
+        {/* Name */}
         <div className="overflow-hidden py-2">
           <motion.h1
             initial={{ y: "110%" }}
             animate={{ y: "0%" }}
-            transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
-            className="font-poster text-5xl sm:text-7xl md:text-9xl font-bold uppercase tracking-tight text-[#0a0a0a] leading-none"
+            transition={{
+              duration: 1.2,
+              ease: [0.76, 0, 0.24, 1],
+            }}
+            className="
+              font-poster
+              text-center
+              text-5xl
+              sm:text-7xl
+              md:text-9xl
+              font-bold
+              uppercase
+              tracking-tight
+              leading-none
+              text-[#0a0a0a]
+              select-none
+            "
           >
             Vishesh Jha
           </motion.h1>
         </div>
-        
-        {/* Simple Line */}
-        <div className="w-64 sm:w-80 md:w-96 h-[1px] bg-[#0a0a0a]" />
-        
-      </div>
 
-      {/* Bottom Footer */}
-      <div className="w-full flex justify-between items-end font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-[#0a0a0a]/50">
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.6 }}
-        >
-          Loading Assets...
-        </motion.p>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
-        >
-          Est. 2026
-        </motion.p>
+        {/* Divider */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{
+            delay: 0.55,
+            duration: 1,
+            ease: [0.76, 0, 0.24, 1],
+          }}
+          style={{ transformOrigin: "center" }}
+          className="mt-8 h-[1px] w-64 bg-[#0a0a0a] sm:w-80 md:w-96"
+        />
       </div>
     </div>
   );
