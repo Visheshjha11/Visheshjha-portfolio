@@ -10,6 +10,7 @@ import { Dock, DockIcon } from "./ui/dock";
 
 import "./Hero.css";
 import "./CapsulePortal.css";
+import mapImage from "../assets/image.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -109,6 +110,11 @@ export default function CapsulePortal() {
   const metric1Ref = useRef<HTMLDivElement>(null);
   const metric2Ref = useRef<HTMLDivElement>(null);
   const metric3Ref = useRef<HTMLDivElement>(null);
+  const leftMetric1Ref = useRef<HTMLDivElement>(null);
+  const leftMetric2Ref = useRef<HTMLDivElement>(null);
+  const rightMetric1Ref = useRef<HTMLDivElement>(null);
+  const rightMetric2Ref = useRef<HTMLDivElement>(null);
+  const mapBgRef = useRef<HTMLImageElement>(null);
 
   // ── Measure capsule placeholder and return clip-path insets ──
   const measureCapsule = useCallback((isDesktop: boolean) => {
@@ -227,12 +233,17 @@ export default function CapsulePortal() {
         tl.fromTo(desktopWorkRef.current, { x: "0vw", opacity: 1 }, { x: "50vw", opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0);
 
         // ── Phase 3: Combined Cinematic Metrics ──
-        const metricRefs = [metric1Ref, metric2Ref, metric3Ref];
+        const metricRefs = [leftMetric1Ref, metric1Ref, rightMetric1Ref, leftMetric2Ref, metric2Ref, rightMetric2Ref, metric3Ref];
         metricRefs.forEach((ref, i) => {
           const offset = 0.4 + (i * 0.05); 
           tl.fromTo(ref.current, { opacity: 0, y: 40, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.2, ease: "power3.out" }, offset);
-          tl.to(ref.current, { opacity: 0, y: -30, scale: 1.02, duration: 0.2, ease: "power2.in" }, offset + 0.3);
+          tl.to(ref.current, { opacity: 0, y: -30, scale: 1.02, duration: 0.2, ease: "power2.in" }, offset + 0.4);
         });
+
+        if (mapBgRef.current) {
+          tl.fromTo(mapBgRef.current, { opacity: 0 }, { opacity: 0.15, duration: 0.4, ease: "power2.out" }, 0.4);
+          tl.to(mapBgRef.current, { opacity: 0, duration: 0.2, ease: "power2.in" }, 1.0);
+        }
 
         // ── Phase 4: Darken to black ──
         tl.to(darkOverlayRef.current, { opacity: 1, duration: 0.2, ease: "power2.inOut" }, 0.8);
@@ -318,12 +329,17 @@ export default function CapsulePortal() {
         tl.fromTo(mobileWorkRef.current, { x: "0vw", opacity: 1 }, { x: "40vw", opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0);
 
         // Combined cinematic metrics
-        const metricRefs = [metric1Ref, metric2Ref, metric3Ref];
+        const metricRefs = [leftMetric1Ref, metric1Ref, rightMetric1Ref, leftMetric2Ref, metric2Ref, rightMetric2Ref, metric3Ref];
         metricRefs.forEach((ref, i) => {
           const offset = 0.4 + (i * 0.05);
           tl.fromTo(ref.current, { opacity: 0, y: 30, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.2, ease: "power3.out" }, offset);
-          tl.to(ref.current, { opacity: 0, y: -20, scale: 1.02, duration: 0.2, ease: "power2.in" }, offset + 0.3);
+          tl.to(ref.current, { opacity: 0, y: -20, scale: 1.02, duration: 0.2, ease: "power2.in" }, offset + 0.4);
         });
+
+        if (mapBgRef.current) {
+          tl.fromTo(mapBgRef.current, { opacity: 0 }, { opacity: 0.15, duration: 0.4, ease: "power2.out" }, 0.4);
+          tl.to(mapBgRef.current, { opacity: 0, duration: 0.2, ease: "power2.in" }, 1.0);
+        }
 
         // Darken fully
         tl.to(darkOverlayRef.current, { opacity: 1, duration: 0.2, ease: "power2.inOut" }, 0.8);
@@ -564,21 +580,48 @@ export default function CapsulePortal() {
 
         {/* ── CINEMATIC METRICS ── */}
         <div ref={metricsWrapperRef} className="capsule-portal__metrics">
+          {/* Map Background */}
+          <img ref={mapBgRef} src={mapImage} className="capsule-portal__map-bg" alt="" aria-hidden="true" style={{ opacity: 0 }} />
+          
           <div className="capsule-metric-wrapper">
-            <div ref={metric1Ref} className="capsule-metric">
-              <div className="capsule-metric__line" />
-              <span className="capsule-metric__text">Building</span>
-              <span className="capsule-metric__sub">AI-First Software</span>
+            <div className="capsule-metric-col capsule-metric-col--left">
+              <div ref={leftMetric1Ref} className="capsule-metric">
+                <span className="capsule-metric__text">12+</span>
+                <span className="capsule-metric__sub">PROJECTS</span>
+              </div>
+              <div ref={leftMetric2Ref} className="capsule-metric">
+                <span className="capsule-metric__text">3</span>
+                <span className="capsule-metric__sub">HACKATHONS</span>
+              </div>
             </div>
-            <div ref={metric2Ref} className="capsule-metric">
-              <div className="capsule-metric__line" />
-              <span className="capsule-metric__text">Open To</span>
-              <span className="capsule-metric__sub">New Oppurtunities</span>
+
+            <div className="capsule-metric-col capsule-metric-col--center">
+              <div ref={metric1Ref} className="capsule-metric">
+                <div className="capsule-metric__line" />
+                <span className="capsule-metric__text">Building</span>
+                <span className="capsule-metric__sub">AI-Native Products</span>
+              </div>
+              <div ref={metric2Ref} className="capsule-metric">
+                <div className="capsule-metric__line" />
+                <span className="capsule-metric__text">Open To</span>
+                <span className="capsule-metric__sub">Global Opportunities</span>
+              </div>
+              <div ref={metric3Ref} className="capsule-metric">
+                <div className="capsule-metric__line" />
+                <span className="capsule-metric__text">Currently</span>
+                <span className="capsule-metric__sub">Exploring ML</span>
+              </div>
             </div>
-            <div ref={metric3Ref} className="capsule-metric">
-              <div className="capsule-metric__line" />
-              <span className="capsule-metric__text">CURRENTLY</span>
-              <span className="capsule-metric__sub">Training ML Models</span>
+
+            <div className="capsule-metric-col capsule-metric-col--right">
+              <div ref={rightMetric1Ref} className="capsule-metric">
+                <span className="capsule-metric__text">5+</span>
+                <span className="capsule-metric__sub">TECHNOLOGIES</span>
+              </div>
+              <div ref={rightMetric2Ref} className="capsule-metric">
+                <span className="capsule-metric__text">1</span>
+                <span className="capsule-metric__sub">AI SYSTEMS</span>
+              </div>
             </div>
           </div>
         </div>
