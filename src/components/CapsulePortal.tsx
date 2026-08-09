@@ -590,7 +590,7 @@ export default function CapsulePortal() {
                 <span className="capsule-metric__sub">PROJECTS</span>
               </div>
               <div ref={leftMetric2Ref} className="capsule-metric">
-                <span className="capsule-metric__text">3</span>
+                <span className="capsule-metric__text">8</span>
                 <span className="capsule-metric__sub">HACKATHONS</span>
               </div>
             </div>
@@ -616,11 +616,11 @@ export default function CapsulePortal() {
             <div className="capsule-metric-col capsule-metric-col--right">
               <div ref={rightMetric1Ref} className="capsule-metric">
                 <span className="capsule-metric__text">5+</span>
-                <span className="capsule-metric__sub">TECHNOLOGIES</span>
+                <span className="capsule-metric__sub">Product Shipped</span>
               </div>
               <div ref={rightMetric2Ref} className="capsule-metric">
-                <span className="capsule-metric__text">1</span>
-                <span className="capsule-metric__sub">AI SYSTEMS</span>
+                <span className="capsule-metric__text">2</span>
+                <span className="capsule-metric__sub">PUBLISHED ARTICLE</span>
               </div>
             </div>
           </div>

@@ -5,7 +5,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
 import saarthiImage from "../assets/Saarthicover.webp";
 import prepxImage from "../assets/PrepX_main.webp";
-import velocitydevImage from "../assets/velocitydev-cover.png";
+import velocitydevImage from "../assets/veloctiydev-main.png";
+import velocitydevCover from "../assets/velocitydev-cover.png";
 import { 
   saarthiRole, 
   saarthiTimeline, 
@@ -57,6 +58,7 @@ export type Project = {
   timeline?: string;
   platform?: string;
   liveWebsite?: string;
+  detailImage?: string;
   sections?: ProjectContentSection[];
 };
 
@@ -96,6 +98,7 @@ export const projects: Project[] = [
     </>
   ),
   image: velocitydevImage,
+  detailImage: velocitydevCover,
   role: velocitydevRole,
   timeline: velocitydevTimeline,
   platform: velocitydevPlatform,
@@ -305,7 +308,7 @@ export default function CaseStudies() {
                         <img
                           src={project.image}
                           alt={project.title.replace("\n", " ")}
-                          className="w-full h-full object-cover contrast-[1.1] brightness-90"
+                          className="w-full h-full object-cover object-top contrast-[1.1] brightness-90"
                           loading="lazy"
                           decoding="async"
                         />
@@ -369,12 +372,12 @@ export default function CaseStudies() {
                         <img
                           src={project.image}
                           alt={project.title.replace("\n", " ")}
-                          className="w-full h-full object-cover contrast-[1.1] brightness-90"
+                          className="w-full h-full object-cover object-top contrast-[1.1] brightness-90"
                           loading="lazy"
                           decoding="async"
                         />
                       ) : (
-                        <div className="w-full h-full bg-black" />
+                        <div className="w-full h-full bg-black contrast-[1.1] brightness-90" />
                       )}
                     </div>
                   </Link>

@@ -89,7 +89,7 @@
   position: relative;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  align-items: center;
+  align-items: stretch;
   width: 90%;
   max-width: 1200px;
   gap: 2rem;
@@ -118,6 +118,7 @@
 .capsule-metric-col--center {
   align-items: center;
   text-align: center;
+  justify-content: center;
   gap: 5rem;
 }
 

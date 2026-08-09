@@ -80,9 +80,9 @@ export default function CaseStudy() {
             transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="w-full aspect-[4/3] md:aspect-video lg:aspect-[21/9] overflow-hidden bg-[#0a0a0a]/5 mb-16 lg:mb-32 relative"
           >
-            {project.image ? (
+            {project.detailImage || project.image ? (
               <img 
-                src={project.image} 
+                src={project.detailImage || project.image} 
                 alt={project.title.replace("\n", " ")}
                 className="w-full h-full object-cover contrast-[1.1] brightness-90"
               />
