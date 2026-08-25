@@ -101,6 +101,7 @@
     grid-template-columns: 1fr;
     gap: 3rem;
     text-align: center;
+    position: static;
   }
 }
 
@@ -129,10 +130,33 @@
 }
 
 @media (max-width: 767px) {
-  .capsule-metric-col {
+  .capsule-metric-col--center {
     align-items: center !important;
     text-align: center !important;
     gap: 1.5rem;
+  }
+
+  .capsule-metric-col--left,
+  .capsule-metric-col--right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    padding: 3rem 1.5rem;
+    justify-content: space-between !important;
+    z-index: 20;
+  }
+
+  .capsule-metric-col--left {
+    left: 0;
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+
+  .capsule-metric-col--right {
+    right: 0;
+    align-items: flex-end !important;
+    text-align: right !important;
   }
 }
 
