@@ -462,12 +462,12 @@ export default function FounderNarrative() {
               <div className="sticky top-0 h-screen flex items-center justify-center pr-12 lg:pr-16 xl:pr-24">
                 <div className="relative w-full max-w-sm lg:max-w-md aspect-[4/5] rounded-xl overflow-hidden border border-[var(--border-color)] shadow-2xl">
                   {/* Base Image (Vishesh) */}
-                  <div className="absolute inset-0 w-full h-full">
-                    <div ref={img1Ref} className="w-full h-full bg-black" />
+                  <div className="absolute inset-0 w-full h-full bg-[#050505]">
+                    <img ref={img1Ref} src="https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=800&auto=format&fit=crop" alt="Software Architecture" className="w-full h-full object-cover opacity-70 mix-blend-luminosity" />
                   </div>
                   {/* Reveal Image (PC Setup) */}
-                  <div ref={img2WrapperRef} className="absolute inset-0 w-full h-full">
-                    <div ref={img2Ref} className="w-full h-full bg-black" />
+                  <div ref={img2WrapperRef} className="absolute inset-0 w-full h-full bg-[#050505]">
+                    <img ref={img2Ref} src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop" alt="Systems and Space" className="w-full h-full object-cover opacity-70 mix-blend-luminosity" />
                   </div>
                 </div>
               </div>
