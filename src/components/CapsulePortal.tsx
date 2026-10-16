@@ -456,9 +456,9 @@ export default function CapsulePortal() {
             <div className="hero-bottom-nav-right">
               <Link to="/blog">Blog</Link>
               <Link to="/resume">Resume</Link>
-              <a href="#about">About</a>
+              <a href="https://medium.com/@visheshjha.in">Medium</a>
             </div>
-          </div>
+          </div>  
         </motion.div>
 
         {/* ── CAPSULE MEDIA LAYER ── */}
