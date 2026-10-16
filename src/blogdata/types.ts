@@ -9,4 +9,12 @@ export interface BlogPostType {
   link: string;
   isInternal?: boolean;
   content?: React.ReactNode;
+  coverImage?: string;
+  readTime?: string;
+  featured?: boolean;
+  author?: {
+    name: string;
+    avatar?: string;
+    role?: string;
+  };
 }

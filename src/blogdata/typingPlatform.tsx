@@ -4,11 +4,18 @@ import { BlogPostType } from "./types";
 export const typingPlatformPost: BlogPostType = {
   id: 2,
   date: "MAY 18, 2026",
-  title: "MOST TYPING PLATFORMS IGNORE DEVELOPERS. SO I BUILT MY OWN.",
-  excerpt: "Just an story about how I built Velocitydev",
+  title: "Most Typing Platforms Ignore Developers. So I Built My Own.",
+  excerpt: "Most typing platforms train you to type prose faster. But developers spend their time typing code, brackets, symbols, and camelCase. Here is how I built Velocitydev from scratch with zero latency in mind.",
   tags: ["BUILD IN PUBLIC", "PRODUCTIVITY"],
   link: "/blog/VelocityDev",
   isInternal: true,
+  coverImage: "/blog/velocity-bw-cover.jpg",
+  readTime: "6 min read",
+  featured: true,
+  author: {
+    name: "Vishesh Jha",
+    role: "Product Engineer"
+  },
   content: (
     <>
       {/* <p className="mb-6">Building Velocitydev turned into an unexpected obsession with developer experience, latency, and interaction design.</p> */}

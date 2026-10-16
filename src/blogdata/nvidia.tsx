@@ -3,12 +3,19 @@ import { BlogPostType } from "./types";
 
 export const nvidiaPost: BlogPostType = {
   id: 1,
-  date: " MAY 27, 2026",
-  title: "NVIDIA: THE RISE OF AN AI COLOSSUS",
-  excerpt: "In 2006, NVIDIA was a struggling GPU company worth $2 billion,On the brink of irrelevance. Fast forward two decades, and it's now worth over $2.5 trillion—more than the combined value of Meta, Netflix, and Disney. How did it pull off one of the most stunning corporate comebacks ever?",
+  date: "MAY 27, 2026",
+  title: "NVIDIA: The Rise of an AI Colossus",
+  excerpt: "In 2006, NVIDIA was a struggling GPU company worth $2 billion on the brink of irrelevance. Fast forward two decades, and it's now worth over $2.5 trillion—more than Meta, Netflix, and Disney combined. How did it pull off one of the greatest comebacks in tech history?",
   tags: ["COMPANY PROFILE", "BUSINESS"],
   link: "/blog/nvidia-the-rise-of-an-ai-colossus",
   isInternal: true,
+  coverImage: "/blog/nvidia-bw-cover.jpg",
+  readTime: "8 min read",
+  featured: true,
+  author: {
+    name: "Vishesh Jha",
+    role: "Product Engineer"
+  },
   content: (
     <>
       <p className="mb-6">Most people still think of NVIDIA as a gaming company.</p>

@@ -3,9 +3,15 @@ import { BlogPostType } from "./types";
 export const reactVsNextPost: BlogPostType = {
   id: 4,
   date: "OCT 27, 2024",
-  title: "SHOULD YOU LEARN REACT OR NEXTJS?",
-  excerpt: "If you're a beginner just starting out, React is definitely the way to go. It's a simpler and more flexible framework that will allow you to get up and running quickly. However, if you're looking to build more complex and production-ready applications, NextJS is the better choice. It's a more comprehensive framework that includes a lot of features that you'll need to build a modern web application.",
+  title: "Should You Learn React or Next.js in 2026?",
+  excerpt: "If you're a beginner just starting out, React provides the core mental model. But for production applications requiring server components, hybrid rendering, and edge performance, Next.js has become the de-facto standard. Here is the full breakdown.",
   tags: ["REACT", "NEXTJS", "WEB DEVELOPMENT"],
   link: "https://medium.com/@visheshjha.in",
-  isInternal: false
+  isInternal: false,
+  coverImage: "/blog/react-next-bw-cover.jpg",
+  readTime: "4 min read",
+  author: {
+    name: "Vishesh Jha",
+    role: "Product Engineer"
+  }
 };
