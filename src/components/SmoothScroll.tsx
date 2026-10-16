@@ -17,6 +17,11 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     // Reset native scroll BEFORE initializing Lenis to prevent inheriting scroll position from previous routes
     window.scrollTo(0, 0);
 
+    // Only run Lenis on desktop / tablet screens (>= 768px)
+    if (window.innerWidth < 768) {
+      return;
+    }
+
     // Initialize Lenis with premium settings
     const lenis = new Lenis({
       duration: 1.2,

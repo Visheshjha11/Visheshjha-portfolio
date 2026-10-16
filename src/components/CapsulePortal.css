@@ -7,8 +7,16 @@
   width: 100%;
 }
 
-/* The viewport that gets pinned — always 100vh
-   MUST mirror .hero-section layout properties exactly */
+@media (max-width: 767px) {
+  .capsule-portal {
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow: hidden;
+  }
+}
+
+/* The viewport that gets pinned — always 100vh on desktop, locked 100dvh on mobile */
 .capsule-portal__viewport {
   position: relative;
   width: 100%;
@@ -20,6 +28,18 @@
   overflow: hidden;
   background-color: #fafafa;
   padding: 0 1.5rem;
+}
+
+@media (max-width: 767px) {
+  .capsule-portal__viewport {
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow: hidden;
+    padding-top: max(3.5rem, calc(2rem + env(safe-area-inset-top)));
+    padding-bottom: max(9rem, calc(8.5rem + env(safe-area-inset-bottom)));
+    justify-content: center;
+  }
 }
 
 /* ── Capsule Media Layer ──

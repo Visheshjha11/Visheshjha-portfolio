@@ -228,3 +228,15 @@ html.lenis body {
     animation-duration: 0.01ms !important;
   }
 }
+
+/* ── Mobile viewport scroll lock ── */
+@media (max-width: 767px) {
+  html.mobile-no-scroll,
+  body.mobile-no-scroll {
+    overflow: hidden !important;
+    height: 100% !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    overscroll-behavior: none !important;
+  }
+}

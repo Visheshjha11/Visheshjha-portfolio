@@ -117,10 +117,8 @@ export default function CapsulePortal() {
   const mapBgRef = useRef<HTMLImageElement>(null);
 
   // ── Measure capsule placeholder and return clip-path insets ──
-  const measureCapsule = useCallback((isDesktop: boolean) => {
-    const placeholder = isDesktop
-      ? desktopPlaceholderRef.current
-      : mobilePlaceholderRef.current;
+  const measureCapsule = useCallback(() => {
+    const placeholder = desktopPlaceholderRef.current;
     const capsuleLayer = capsuleLayerRef.current;
     if (!placeholder || !capsuleLayer) return null;
 
@@ -154,7 +152,7 @@ export default function CapsulePortal() {
       //  DESKTOP (≥ 768px)
       // ════════════════════════════════════════════
       mm.add("(min-width: 768px)", () => {
-        const insets = measureCapsule(true);
+        const insets = measureCapsule();
         if (!insets) return;
 
         // Set initial clip-path and reveal
@@ -198,7 +196,7 @@ export default function CapsulePortal() {
             anticipatePin: 1,
             refreshPriority: 100,
             onRefresh: () => {
-              const fresh = measureCapsule(true);
+              const fresh = measureCapsule();
               if (fresh) {
                 clip.top = fresh.top;
                 clip.right = fresh.right;
@@ -251,106 +249,7 @@ export default function CapsulePortal() {
         return () => tl.kill();
       });
 
-      // ════════════════════════════════════════════
-      //  MOBILE (< 768px)
-      // ════════════════════════════════════════════
-      mm.add("(max-width: 767px)", () => {
-        const insets = measureCapsule(false);
-        if (!insets) return;
-
-        gsap.set(capsuleLayer, {
-          clipPath: `inset(${insets.top}px ${insets.right}px ${insets.bottom}px ${insets.left}px round 9999px)`,
-          visibility: "visible",
-        });
-
-        const cWidth = capsuleLayer.getBoundingClientRect().width;
-        const startRightInset = cWidth - insets.left;
-        gsap.set([whiteFillRef.current, imageFillRef.current], {
-          clipPath: `inset(0px ${startRightInset}px 0px 0px)`
-        });
-
-        gsap.timeline()
-          .to(whiteFillRef.current, {
-            clipPath: `inset(0px 0px 0px 0px)`,
-            duration: 0.6,
-            ease: "power3.inOut"
-          })
-          .to(imageFillRef.current, {
-            clipPath: `inset(0px 0px 0px 0px)`,
-            duration: 0.6,
-            ease: "power3.inOut",
-            onComplete: () => {
-              gsap.set([whiteFillRef.current, imageFillRef.current], { clearProps: "clipPath" });
-            }
-          }, "-=0.35");
-
-        const clip = { ...insets, radius: window.innerHeight / 2 };
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "+=120%",
-            pin: true,
-            scrub: true,
-            invalidateOnRefresh: true,
-            anticipatePin: 1,
-            refreshPriority: 100,
-            onRefresh: () => {
-              const fresh = measureCapsule(false);
-              if (fresh) {
-                Object.assign(clip, fresh);
-                clip.radius = window.innerHeight / 2;
-              }
-            },
-          },
-        });
-
-        // Peripherals fade
-        tl.to([ditherRef.current, grainRef.current].filter(Boolean), { opacity: 0, duration: 0.2, ease: "power2.in" }, 0);
-        tl.fromTo(
-          [roleTagRef.current, dividerRef.current, subtextRef.current, bottomNavRef.current].filter(Boolean),
-          { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power2.in" }, 0
-        );
-
-        // Capsule expands
-        tl.to(
-          capsuleLayer,
-          {
-            clipPath: "inset(0px 0px 0px 0px round 0px)",
-            duration: 0.7, ease: "power2.inOut",
-          },
-          0
-        );
-
-        // Mobile headline lines separate
-        tl.fromTo([mobileLine1Ref.current, mobileLine2Ref.current].filter(Boolean), { y: "0%", opacity: 1 }, { y: "-120%", opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0);
-        tl.fromTo(mobileThatRef.current, { x: "0vw", opacity: 1 }, { x: "-40vw", opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0);
-        tl.fromTo(mobileWorkRef.current, { x: "0vw", opacity: 1 }, { x: "40vw", opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0);
-
-        // Combined cinematic metrics
-        const metricRefs = [leftMetric1Ref, metric1Ref, rightMetric1Ref, leftMetric2Ref, metric2Ref, rightMetric2Ref, metric3Ref];
-        metricRefs.forEach((ref, i) => {
-          const offset = 0.4 + (i * 0.05);
-          tl.fromTo(ref.current, { opacity: 0, y: 30, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.2, ease: "power3.out" }, offset);
-          tl.to(ref.current, { opacity: 0, y: -20, scale: 1.02, duration: 0.2, ease: "power2.in" }, offset + 0.4);
-        });
-
-        if (mapBgRef.current) {
-          tl.fromTo(mapBgRef.current, { opacity: 0 }, { opacity: 0.15, duration: 0.4, ease: "power2.out" }, 0.4);
-          tl.to(mapBgRef.current, { opacity: 0, duration: 0.2, ease: "power2.in" }, 1.0);
-        }
-
-        // Darken fully
-        tl.to(darkOverlayRef.current, { opacity: 1, duration: 0.2, ease: "power2.inOut" }, 0.8);
-
-        return () => tl.kill();
-      });
-
-
-
     return () => {
-      
       if (mm) mm.revert();
     };
   }, [measureCapsule]);
@@ -423,8 +322,7 @@ export default function CapsulePortal() {
                 <span ref={mobileThatRef}>That</span>
                 <span
                   ref={mobilePlaceholderRef}
-                  className="hero-capsule-placeholder"
-                  style={{ background: "transparent" }}
+                  className="hero-capsule-placeholder bg-black"
                 />
                 <span ref={mobileWorkRef} className="hero-headline-accent">
                   Stand·Out
@@ -566,7 +464,7 @@ export default function CapsulePortal() {
         {/* ── CAPSULE MEDIA LAYER ── */}
         <motion.div 
           ref={capsuleLayerRef} 
-          className="capsule-portal__capsule"
+          className="capsule-portal__capsule hidden md:block"
           initial={{ x: "-50%", y: 40 }}
           animate={{ x: "-50%", y: 0 }}
           transition={{ delay: 0.55, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
@@ -579,7 +477,7 @@ export default function CapsulePortal() {
         </motion.div>
 
         {/* ── CINEMATIC METRICS ── */}
-        <div ref={metricsWrapperRef} className="capsule-portal__metrics">
+        <div ref={metricsWrapperRef} className="capsule-portal__metrics hidden md:flex">
           {/* Map Background */}
           <img ref={mapBgRef} src={mapImage} className="capsule-portal__map-bg" alt="" aria-hidden="true" style={{ opacity: 0 }} />
           

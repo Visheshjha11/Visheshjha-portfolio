@@ -18,7 +18,7 @@ export const typingPlatformPost: BlogPostType = {
       <img src="/blog/velocity-1.png" alt="Velocitydev Dashboard" className="w-full rounded-xl shadow-lg border border-black/10 my-10" />
 
       <p className="mb-6">Most typing websites train you to type English faster.</p>
-      <p className="mb-6">Developers don’t spend their day typing English.</p>
+      <p className="mb-6">Developers don't spend their day typing English.</p>
       
       <p className="mb-6">We type:</p>
       <ul className="list-disc list-inside mb-6 space-y-2">
@@ -112,7 +112,7 @@ export const typingPlatformPost: BlogPostType = {
       <p className="mb-6">I underestimated how difficult it is to make software feel fast.</p>
       <p className="mb-6">Not benchmark fast.</p>
       <p className="mb-6">Human fast.</p>
-      <p className="mb-6">There’s a huge difference.</p>
+      <p className="mb-6">There's a huge difference.</p>
       <p className="mb-6">I rebuilt the typing input system multiple times because something always felt slightly wrong.</p>
       <p className="mb-6">Not broken.</p>
       <p className="mb-6">Wrong.</p>
