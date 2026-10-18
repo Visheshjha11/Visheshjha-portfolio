@@ -10,7 +10,7 @@ import velocitydevCover from "../assets/velocitydev-cover.png";
 import { 
   saarthiRole, 
   saarthiTimeline, 
-  saarthiPlatform, 
+  saarthiPlatform,
   saarthiLiveWebsite, 
   saarthiSections 
 } from "../data/saarthiContent";

@@ -12,4 +12,5 @@ Vishesh Jha is a Full Stack Developer building scalable, AI-powered products.
 ## Links
 - LinkedIn: https://www.linkedin.com/in/visheshjha11/
 - GitHub: https://github.com/Visheshjha11
-- Website: https://visheshjha-portfolio.vercel.app
+- Website: https://visheshjha.me
+- Vercel App: https://visheshjha-portfolio.vercel.app

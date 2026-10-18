@@ -1,16 +1,17 @@
-import { useRef, useEffect, useCallback, useState } from "react";
+import { useRef, useEffect, useCallback, useState, lazy, Suspense } from "react";
 import { motion } from "motion/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaLinkedin } from "react-icons/fa";
 import { SiGithub, SiSubstack, SiYoutube, SiGmail } from "react-icons/si";
 import { Link } from "react-router-dom";
-import Dither from "./ui/Dither";
+// Lazy: Three.js + postprocessing (~heavy) no longer block the hero text from painting
+const Dither = lazy(() => import("./ui/Dither"));
 import { Dock, DockIcon } from "./ui/dock";
 
 import "./Hero.css";
 import "./CapsulePortal.css";
-import mapImage from "../assets/image.jpg";
+import mapImage from "../assets/image.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -47,6 +48,19 @@ function LiveTime() {
 }
 
 export default function CapsulePortal() {
+  // The Dither canvas is faded to opacity 0 early in the scroll animation; stop
+  // rendering it at that point instead of running the shader invisibly.
+  // IMPORTANT: this is a ref, not state. Re-rendering this component mid-scroll makes
+  // React re-apply Motion's inline styles and undoes GSAP's fade-out of the dock/labels.
+  const ditherPausedRef = useRef(false);
+  const reducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const lowEnd =
+    typeof navigator !== "undefined" &&
+    ((navigator.hardwareConcurrency ?? 8) <= 4 ||
+      ((navigator as any).deviceMemory ?? 8) <= 4);
+
   // ── Section refs ──
   const sectionRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -195,6 +209,7 @@ export default function CapsulePortal() {
             invalidateOnRefresh: true,
             anticipatePin: 1,
             refreshPriority: 100,
+            onUpdate: (self) => { ditherPausedRef.current = self.progress > 0.2; },
             onRefresh: () => {
               const fresh = measureCapsule();
               if (fresh) {
@@ -264,9 +279,12 @@ export default function CapsulePortal() {
 
         {/* Background Dither */}
         <div ref={ditherRef} className="hero-dither">
+          <Suspense fallback={null}>
           <Dither
+            pausedRef={ditherPausedRef}
+            fps={lowEnd ? 20 : 30}
             waveColor={[0.85, 0.85, 0.85]}
-            disableAnimation={false}
+            disableAnimation={reducedMotion}
             enableMouseInteraction={typeof window !== 'undefined' ? window.innerWidth >= 768 : true}
             mouseRadius={0.3}
             colorNum={3}
@@ -274,6 +292,7 @@ export default function CapsulePortal() {
             waveFrequency={2.5}
             waveSpeed={0.08}
           />
+          </Suspense>
         </div>
 
         {/* Grain */}

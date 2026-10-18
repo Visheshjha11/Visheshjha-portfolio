@@ -29,54 +29,39 @@ function PostCard({ post }: { post: BlogPostType }) {
 
   return (
     <CardWrapper>
-      <div className="flex flex-col h-full">
-        {/* 16:9 Cover Image — Clean, unobstructed & properly aligned */}
-        <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-[#0a0a0a] border border-black/10 shadow-sm">
-          {post.coverImage ? (
-            <img
-              src={post.coverImage}
-              alt={post.title}
-              className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-500 ease-out"
-              loading="lazy"
-            />
-          ) : (
-            <div className="w-full h-full bg-neutral-900 flex items-center justify-center text-neutral-600 font-mono text-xs">
-              No Cover
-            </div>
-          )}
+      <div className="flex flex-col h-full p-6 sm:p-7 rounded-2xl bg-white border border-black/10 hover:border-black/25 transition-all duration-300 shadow-xs">
+        {/* Tags & External Indicator row */}
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            {post.tags.slice(0, 2).map((tag) => (
+              <span
+                key={tag}
+                className="px-2.5 py-0.5 rounded-full text-[0.6rem] font-header font-bold tracking-wider uppercase bg-neutral-100 text-neutral-600 border border-neutral-200/80"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
 
-          {/* External Indicator */}
           {!post.isInternal && (
-            <div className="absolute top-3.5 right-3.5 z-10 w-7 h-7 rounded-full bg-black/60 backdrop-blur-md text-white flex items-center justify-center border border-white/10 opacity-80 group-hover:opacity-100 transition-opacity">
+            <div className="w-7 h-7 rounded-full bg-neutral-100 group-hover:bg-neutral-900 text-neutral-600 group-hover:text-white flex items-center justify-center transition-colors">
               <ArrowUpRight className="w-3.5 h-3.5" />
             </div>
           )}
         </div>
 
-        {/* Tags row above title */}
-        <div className="flex items-center gap-2 mt-4">
-          {post.tags.slice(0, 2).map((tag) => (
-            <span
-              key={tag}
-              className="px-2.5 py-0.5 rounded-full text-[0.6rem] font-header font-bold tracking-wider uppercase bg-neutral-100 text-neutral-600 border border-neutral-200/80"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
         {/* Post Title */}
-        <h2 className="font-sans font-bold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mt-2 text-xl sm:text-2xl">
+        <h2 className="font-sans font-bold tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors mt-3 text-xl sm:text-2xl">
           {post.title}
         </h2>
 
         {/* Excerpt */}
-        <p className="text-xs sm:text-sm text-neutral-600 font-body leading-relaxed line-clamp-2 mt-2">
+        <p className="text-xs sm:text-sm text-neutral-600 font-body leading-relaxed line-clamp-3 mt-2">
           {post.excerpt}
         </p>
 
         {/* Author Meta Row */}
-        <div className="flex items-center gap-2 sm:gap-2.5 mt-4 text-xs font-header text-neutral-500">
+        <div className="flex items-center gap-2 sm:gap-2.5 mt-auto pt-5 text-xs font-header text-neutral-500">
           <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-neutral-900 text-white flex items-center justify-center text-[0.55rem] sm:text-[0.6rem] font-bold font-header ring-2 ring-white">
             VJ
           </div>

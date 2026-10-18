@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import { useRef, useEffect, useMemo, forwardRef, useState } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useThree } from '@react-three/fiber';
 import { EffectComposer, wrapEffect } from '@react-three/postprocessing';
 import { Effect } from 'postprocessing';
 import * as THREE from 'three';
@@ -184,6 +184,14 @@ interface DitherProps {
   disableAnimation?: boolean;
   enableMouseInteraction?: boolean;
   mouseRadius?: number;
+  /**
+   * Ref (not state!) that stops rendering while `.current` is true. A ref is used on
+   * purpose: toggling React state in the parent would re-render it and reset styles
+   * that GSAP applied to sibling Motion elements.
+   */
+  pausedRef?: React.MutableRefObject<boolean>;
+  /** Frame cap for the wave animation. The waves are slow, 30fps looks identical. */
+  fps?: number;
 }
 
 function DitheredWaves({
@@ -195,10 +203,13 @@ function DitheredWaves({
   pixelSize = 2,
   disableAnimation = false,
   enableMouseInteraction = true,
-  mouseRadius = 1
+  mouseRadius = 1,
+  fps = 30,
+  pausedRef
 }: DitherProps) {
   const mesh = useRef<THREE.Mesh>(null);
-  const { viewport, size, gl } = useThree();
+  const { viewport, size, gl, invalidate } = useThree();
+  const mouse = useRef({ x: 0, y: 0, dirty: false });
 
   // Create the material imperatively so we have full control
   const material = useMemo(() => {
@@ -230,48 +241,68 @@ function DitheredWaves({
     material.uniforms.resolution.value.set(w, h);
   }, [size, gl, material]);
 
-  // Use a native requestAnimationFrame loop for animation — 
-  // bypasses R3F's useFrame entirely to avoid any timing issues
+  // Single, throttled loop. The Canvas runs with frameloop="demand", so a frame is
+  // only rendered when we call invalidate() here (instead of R3F's own 60fps loop
+  // plus a second rAF loop running at the same time).
   useEffect(() => {
     if (disableAnimation) return;
 
-    let frameId: number;
-    const animate = () => {
-      const elapsed = (performance.now() - startTime.current) / 1000;
-      material.uniforms.time.value = elapsed;
-      material.uniformsNeedUpdate = true;
+    const frameMs = 1000 / fps;
+    let frameId = 0;
+    let last = 0;
+    const animate = (now: number) => {
       frameId = requestAnimationFrame(animate);
+      if (now - last < frameMs) return;
+      last = now;
+      if (pausedRef?.current) return; // hero faded out: skip all GPU work
+
+      material.uniforms.time.value = (now - startTime.current) / 1000;
+
+      // Read layout at most once per rendered frame (not on every mousemove event)
+      if (mouse.current.dirty) {
+        mouse.current.dirty = false;
+        const rect = gl.domElement.getBoundingClientRect();
+        const dpr = gl.getPixelRatio();
+        material.uniforms.mousePos.value.set(
+          (mouse.current.x - rect.left) * dpr,
+          (mouse.current.y - rect.top) * dpr
+        );
+      }
+      invalidate();
     };
     frameId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(frameId);
-  }, [disableAnimation, material]);
+  }, [disableAnimation, material, fps, gl, invalidate, pausedRef]);
 
   // Track mouse globally so it works even over text/images
   useEffect(() => {
     if (!enableMouseInteraction) return;
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (typeof window !== 'undefined' && window.innerWidth < 768) return;
-      const canvas = gl.domElement;
-      const rect = canvas.getBoundingClientRect();
-      const dpr = gl.getPixelRatio();
-      const x = (e.clientX - rect.left) * dpr;
-      const y = (e.clientY - rect.top) * dpr;
-      material.uniforms.mousePos.value.set(x, y);
+      if (window.innerWidth < 768) return;
+      mouse.current.x = e.clientX;
+      mouse.current.y = e.clientY;
+      mouse.current.dirty = true;
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [enableMouseInteraction, gl, material]);
+  }, [enableMouseInteraction]);
 
-  // Sync prop changes
-  useFrame(() => {
-    material.uniforms.waveSpeed.value = waveSpeed;
-    material.uniforms.waveFrequency.value = waveFrequency;
-    material.uniforms.waveAmplitude.value = waveAmplitude;
-    material.uniforms.enableMouseInteraction.value = (enableMouseInteraction && (typeof window !== 'undefined' && window.innerWidth >= 768)) ? 1 : 0;
-    material.uniforms.mouseRadius.value = mouseRadius;
-  });
+  // Sync prop changes only when they actually change (not every frame)
+  useEffect(() => {
+    const u = material.uniforms;
+    u.waveSpeed.value = waveSpeed;
+    u.waveFrequency.value = waveFrequency;
+    u.waveAmplitude.value = waveAmplitude;
+    u.enableMouseInteraction.value =
+      enableMouseInteraction && window.innerWidth >= 768 ? 1 : 0;
+    u.mouseRadius.value = mouseRadius;
+    invalidate();
+  }, [material, waveSpeed, waveFrequency, waveAmplitude, enableMouseInteraction, mouseRadius, invalidate]);
+
+  // Free GPU memory when the component unmounts
+  useEffect(() => () => material.dispose(), [material]);
 
   return (
     <>
@@ -280,7 +311,7 @@ function DitheredWaves({
         <primitive object={material} attach="material" />
       </mesh>
 
-      <EffectComposer>
+      <EffectComposer multisampling={0}>
         <RetroEffect colorNum={colorNum} pixelSize={pixelSize} />
       </EffectComposer>
     </>
@@ -296,7 +327,9 @@ export default function Dither({
   pixelSize = 2,
   disableAnimation = false,
   enableMouseInteraction = true,
-  mouseRadius = 1
+  mouseRadius = 1,
+  pausedRef,
+  fps = 30
 }: DitherProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(true);
@@ -316,8 +349,8 @@ export default function Dither({
         className="dither-container"
         camera={{ position: [0, 0, 6] }}
         dpr={1}
-        frameloop={isVisible ? "always" : "demand"}
-        gl={{ antialias: true, preserveDrawingBuffer: true }}
+        frameloop="demand"
+        gl={{ antialias: false, preserveDrawingBuffer: false }}
       >
         <DitheredWaves
           waveSpeed={waveSpeed}
@@ -328,7 +361,9 @@ export default function Dither({
           pixelSize={pixelSize}
           disableAnimation={disableAnimation || !isVisible}
           enableMouseInteraction={enableMouseInteraction && isVisible}
+          pausedRef={pausedRef}
           mouseRadius={mouseRadius}
+          fps={fps}
         />
       </Canvas>
     </div>

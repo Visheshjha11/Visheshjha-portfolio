@@ -10,6 +10,15 @@ const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const Resume = lazy(() => import("./pages/Resume"));
 
+// Route chunks are only downloaded when first visited, which (combined with the
+// exit animation) caused a blank/black gap on navigation. Warm them up when idle.
+const prefetchRoutes = () => {
+  import("./pages/Blog");
+  import("./pages/BlogPost");
+  import("./pages/CaseStudy");
+  import("./pages/Resume"); // biggest chunk (react-pdf), fetched last
+};
+
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -22,6 +31,20 @@ export default function App() {
       setFontsLoaded(true);
     }
   }, []);
+
+  // Prefetch other pages in the background after the intro finishes
+  useEffect(() => {
+    if (loading) return;
+    const ric = (window as any).requestIdleCallback as
+      | ((cb: () => void, opts?: { timeout: number }) => number)
+      | undefined;
+    const id = ric ? ric(prefetchRoutes, { timeout: 4000 }) : window.setTimeout(prefetchRoutes, 2000);
+    return () => {
+      const cic = (window as any).cancelIdleCallback as ((n: number) => void) | undefined;
+      if (ric && cic) cic(id);
+      else window.clearTimeout(id);
+    };
+  }, [loading]);
 
   // Prevent scrolling while loading
   useEffect(() => {
@@ -72,9 +95,8 @@ export default function App() {
           <motion.div
             key={location.pathname}
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: "easeInOut", delay: loading ? 1.2 : 0 }}
+            animate={{ opacity: 1, transition: { duration: 0.3, ease: "easeOut", delay: loading ? 1.2 : 0 } }}
+            exit={{ opacity: 0, transition: { duration: 0.15, ease: "easeIn" } }}
             className="w-full min-h-screen"
           >
             {fontsLoaded && (
