@@ -1,9 +1,10 @@
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
+import { useVisitorLocation } from "../hooks/useVisitorLocation";
 
 export default function Contact() {
   const [visitorCount, setVisitorCount] = useState<number | null>(null);
-  const [location, setLocation] = useState<string | null>(() => localStorage.getItem("visitorLocation"));
+  const location = useVisitorLocation();
 
   useEffect(() => {
     // Fetch Visitor Count (Unique per user via localStorage)
@@ -31,32 +32,6 @@ export default function Contact() {
           setVisitorCount(1); // Fallback base number if completely blocked on first visit
         }
       });
-
-    const fallbackToIP = () => {
-      if (localStorage.getItem("visitorLocation")) return; // Don't fetch if we already have it
-
-      fetch("https://ipinfo.io/json")
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.region && data.country) {
-            try {
-              const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
-              const countryName = regionNames.of(data.country);
-              const locStr = `${data.region}, ${countryName || data.country}`;
-              setLocation(locStr);
-              localStorage.setItem("visitorLocation", locStr);
-            } catch (e) {
-              const locStr = `${data.region}, ${data.country}`;
-              setLocation(locStr);
-              localStorage.setItem("visitorLocation", locStr);
-            }
-          }
-        })
-        .catch(console.error);
-    };
-
-    // Fetch Geolocation via IP (silent, no permission prompt)
-    fallbackToIP();
   }, []);
 
   const visitorStatsUI = (
@@ -65,7 +40,7 @@ export default function Contact() {
         <span className="mb-2 md:mb-4">{visitorCount.toLocaleString()} visitors so far</span>
       )}
       {location && (
-        <span>You're visiting from {location}</span>
+        <span>You are visiting from {location}</span>
       )}
     </div>
   );
