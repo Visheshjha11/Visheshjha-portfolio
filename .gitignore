@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+//patch
+
+world-map-delhi-oneshot.patch
+world-map-final.patch

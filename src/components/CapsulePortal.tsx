@@ -232,6 +232,7 @@ export default function CapsulePortal() {
             },
           },
         });
+        
 
         // ── Phase 1: Peripherals fade out ──
         tl.to([ditherRef.current, grainRef.current].filter(Boolean), { opacity: 0, duration: 0.2, ease: "power2.in" }, 0);
