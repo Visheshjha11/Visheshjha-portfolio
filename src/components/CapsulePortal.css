@@ -272,3 +272,82 @@
     transform: none !important;
   }
 }
+
+/* ── Bright cities + connections layered over the dotted world map ── */
+.capsule-portal__map-cities {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.map-cities {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* Resting state (before the animation starts): hub visible, lines and cities hidden */
+.map-cities__arc {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.55);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  vector-effect: non-scaling-stroke;
+}
+
+.map-cities__city {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0.3);
+}
+
+.map-cities__ring {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.5;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* One-shot sequence, started by adding .is-live to .capsule-portal__map-cities */
+.is-live .map-cities__arc {
+  animation: map-arc-draw 1.1s cubic-bezier(0.22, 1, 0.36, 1) var(--d) forwards;
+}
+
+.is-live .map-cities__city {
+  animation: map-city-pop 0.6s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--d) + 0.85s) forwards;
+}
+
+.is-live .map-cities__ring {
+  animation: map-hub-ping 1.4s ease-out 0.1s 1 forwards;
+}
+
+@keyframes map-arc-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes map-city-pop {
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes map-hub-ping {
+  0% { opacity: 0.9; transform: scale(1); }
+  100% { opacity: 0; transform: scale(4.5); }
+}
+
+/* Reduced motion: show the finished network, no animation */
+@media (prefers-reduced-motion: reduce) {
+  .map-cities__arc { stroke-dashoffset: 0; }
+  .map-cities__city { opacity: 1; transform: none; }
+  .is-live .map-cities__arc,
+  .is-live .map-cities__city,
+  .is-live .map-cities__ring { animation: none; }
+}

@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 // Lazy: Three.js + postprocessing (~heavy) no longer block the hero text from painting
 const Dither = lazy(() => import("./ui/Dither"));
 import { Dock, DockIcon } from "./ui/dock";
+import WorldMapCities from "./WorldMapCities";
 
 import "./Hero.css";
 import "./CapsulePortal.css";
@@ -129,6 +130,7 @@ export default function CapsulePortal() {
   const rightMetric1Ref = useRef<HTMLDivElement>(null);
   const rightMetric2Ref = useRef<HTMLDivElement>(null);
   const mapBgRef = useRef<HTMLImageElement>(null);
+  const mapCitiesRef = useRef<HTMLDivElement>(null);
 
   // ── Measure capsule placeholder and return clip-path insets ──
   const measureCapsule = useCallback(() => {
@@ -209,7 +211,15 @@ export default function CapsulePortal() {
             invalidateOnRefresh: true,
             anticipatePin: 1,
             refreshPriority: 100,
-            onUpdate: (self) => { ditherPausedRef.current = self.progress > 0.2; },
+            onUpdate: (self) => {
+              ditherPausedRef.current = self.progress > 0.2;
+              // Start the one-shot city connections once the map has faded in; reset when scrolled back
+              const live = mapCitiesRef.current;
+              if (live) {
+                if (self.progress > 0.34) live.classList.add("is-live");
+                else if (self.progress < 0.25) live.classList.remove("is-live");
+              }
+            },
             onRefresh: () => {
               const fresh = measureCapsule();
               if (fresh) {
@@ -222,6 +232,7 @@ export default function CapsulePortal() {
             },
           },
         });
+        
 
         // ── Phase 1: Peripherals fade out ──
         tl.to([ditherRef.current, grainRef.current].filter(Boolean), { opacity: 0, duration: 0.2, ease: "power2.in" }, 0);
@@ -256,6 +267,11 @@ export default function CapsulePortal() {
         if (mapBgRef.current) {
           tl.fromTo(mapBgRef.current, { opacity: 0 }, { opacity: 0.15, duration: 0.4, ease: "power2.out" }, 0.4);
           tl.to(mapBgRef.current, { opacity: 0, duration: 0.2, ease: "power2.in" }, 1.0);
+        }
+        // Bright cities + connections ride on the same timing as the dotted map
+        if (mapCitiesRef.current) {
+          tl.fromTo(mapCitiesRef.current, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 0.4);
+          tl.to(mapCitiesRef.current, { opacity: 0, duration: 0.2, ease: "power2.in" }, 1.0);
         }
 
         // ── Phase 4: Darken to black ──
@@ -499,6 +515,10 @@ export default function CapsulePortal() {
         <div ref={metricsWrapperRef} className="capsule-portal__metrics hidden md:flex">
           {/* Map Background */}
           <img ref={mapBgRef} src={mapImage} className="capsule-portal__map-bg" alt="" aria-hidden="true" style={{ opacity: 0 }} />
+          {/* Bright big cities + connections (the dotted map above stays as is) */}
+          <div ref={mapCitiesRef} className="capsule-portal__map-cities" style={{ opacity: 0 }}>
+            <WorldMapCities />
+          </div>
           
           <div className="capsule-metric-wrapper">
             <div className="capsule-metric-col capsule-metric-col--left">
