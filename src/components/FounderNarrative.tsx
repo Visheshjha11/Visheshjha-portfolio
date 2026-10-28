@@ -2,35 +2,7 @@ import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import {
-  SiNextdotjs,
-  SiReact,
-  SiTypescript,
-  SiTailwindcss,
-  SiNodedotjs,
-  SiExpress,
-  SiMongodb,
-  SiPython,
-  SiJavascript,
-  SiOpenai,
-  SiGooglegemini,
-  SiGooglecloud,
-  SiClerk,
-  SiPrisma,
-  SiPostgresql,
-  SiGit,
-  SiGithub,
-  SiVercel,
-  SiRender,
-  SiRedis,
-  SiSupabase,
-  SiFigma,
-  SiPostman,
-  SiLinux,
-} from "react-icons/si";
-import { GiPineTree } from "react-icons/gi";
-
-import FlowingMenu from "./FlowingMenu";
+import GithubSkyline from "./GithubSkyline";
 import CountUp from "./CountUp";
 gsap.registerPlugin(ScrollTrigger);
 
@@ -96,52 +68,6 @@ export default function FounderNarrative() {
   const img1Ref = useRef<HTMLImageElement>(null);
   const img2Ref = useRef<HTMLImageElement>(null);
   const img2WrapperRef = useRef<HTMLDivElement>(null);
-
-  const techItems = [
-  {
-    link: '#about',
-    text: 'SYSTEMS I BUILD',
-    logos: [
-      { node: <SiNextdotjs />, title: "Next.js" },
-      { node: <SiReact />, title: "React" },
-      { node: <SiTypescript />, title: "TypeScript" },
-      { node: <SiTailwindcss />, title: "Tailwind CSS" },
-      { node: <SiNodedotjs />, title: "Node.js" },
-      { node: <SiExpress />, title: "Express.js" },
-      { node: <SiRedis />, title: "Redis" },
-      { node: <SiSupabase />, title: "Supabase" },
-      { node: <SiMongodb />, title: "MongoDB" },
-      { node: <SiPython />, title: "Python" },
-      { node: <SiJavascript />, title: "JavaScript" },
-    ]
-  },
-  {
-    link: '#work',
-    text: 'AI & BACKEND',
-    logos: [
-      { node: <SiOpenai />, title: "OpenAI" },
-      { node: <GiPineTree />, title: "Pinecone" },
-      { node: <SiGooglegemini />, title: "Gemini" },
-      { node: <SiGooglecloud />, title: "Google Cloud" },
-      { node: <SiClerk />, title: "Clerk" },
-      { node: <SiPrisma />, title: "Prisma" },
-      { node: <SiPostgresql />, title: "PostgreSQL" },
-    ]
-  },
-  {
-    link: '#contact',
-    text: 'TOOLS I USE DAILY',
-    logos: [
-      { node: <SiGit />, title: "Git" },
-      { node: <SiGithub />, title: "GitHub" },
-      { node: <SiVercel />, title: "Vercel" },
-      { node: <SiRender />, title: "Render" },
-      { node: <SiFigma />, title: "Figma" },
-      { node: <SiPostman />, title: "Postman" },
-      { node: <SiLinux />, title: "Linux" },
-    ]
-  }
-];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -495,8 +421,8 @@ export default function FounderNarrative() {
         <div className="skills-section relative z-20 bg-[#0a0a0a] min-h-[100vh] flex flex-col justify-center py-20 w-full overflow-hidden">
           
           <div className="flex-1" />
-          <div className="w-full py-19 md:py-29">
-            <FlowingMenu items={techItems} />
+          <div className="w-full py-12 md:py-20">
+            <GithubSkyline />
           </div>
           <div className="mt-auto pb-10 flex flex-col items-center justify-center gap-3 sm:gap-6 w-full text-center px-4">
             <span className="text-[0.65rem] sm:text-xs md:text-sm font-header font-bold tracking-[0.35em] uppercase text-white/70">
