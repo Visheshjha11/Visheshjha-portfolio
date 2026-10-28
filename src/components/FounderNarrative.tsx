@@ -365,7 +365,7 @@ export default function FounderNarrative() {
                     className="text-xl md:text-2xl lg:text-3xl font-helvetica font-normal text-[var(--text-primary)] leading-[1.6] tracking-tight"
                     highlightWords={["intelligence,", "clarity,", "and", "execution."]}
                   >
-                    The web doesn't need more noise - it needs intelligence, clarity, and execution.
+                    I like working across the stack, figuring out how things work under the hood, and building products that go beyond the interface.
                   </RevealText>
                 </div>
               </div>
