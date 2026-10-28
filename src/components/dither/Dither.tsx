@@ -230,6 +230,20 @@ function DitheredWaves({
     material.uniforms.resolution.value.set(w, h);
   }, [size, gl, material]);
 
+  // Stop the render loop (waves + EffectComposer) while the canvas is off screen.
+  // Previously it kept drawing at full rate for the whole page, competing with
+  // the cursor and scrolling for GPU time on every frame.
+  const setFrameloop = useThree((state) => state.setFrameloop);
+  useEffect(() => {
+    const el = gl.domElement;
+    const io = new IntersectionObserver(
+      ([entry]) => setFrameloop(entry.isIntersecting ? 'always' : 'never'),
+      { threshold: 0 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [gl, setFrameloop]);
+
   // Use a native requestAnimationFrame loop for animation — 
   // bypasses R3F's useFrame entirely to avoid any timing issues
   useEffect(() => {
@@ -250,17 +264,33 @@ function DitheredWaves({
   useEffect(() => {
     if (!enableMouseInteraction) return;
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const canvas = gl.domElement;
-      const rect = canvas.getBoundingClientRect();
+    let pending = false;
+    let clientX = 0;
+    let clientY = 0;
+    let rafId = 0;
+
+    const flush = () => {
+      pending = false;
+      const rect = gl.domElement.getBoundingClientRect();
       const dpr = gl.getPixelRatio();
-      const x = (e.clientX - rect.left) * dpr;
-      const y = (e.clientY - rect.top) * dpr;
-      material.uniforms.mousePos.value.set(x, y);
+      material.uniforms.mousePos.value.set((clientX - rect.left) * dpr, (clientY - rect.top) * dpr);
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    // One layout read per frame instead of one per mousemove event
+    const handleMouseMove = (e: MouseEvent) => {
+      clientX = e.clientX;
+      clientY = e.clientY;
+      if (!pending) {
+        pending = true;
+        rafId = requestAnimationFrame(flush);
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(rafId);
+    };
   }, [enableMouseInteraction, gl, material]);
 
   // Sync prop changes
@@ -279,7 +309,7 @@ function DitheredWaves({
         <primitive object={material} attach="material" />
       </mesh>
 
-      <EffectComposer>
+      <EffectComposer multisampling={0}>
         <RetroEffect colorNum={colorNum} pixelSize={pixelSize} />
       </EffectComposer>
     </>
@@ -303,7 +333,7 @@ export default function Dither({
       camera={{ position: [0, 0, 6] }}
       dpr={1}
       frameloop="always"
-      gl={{ antialias: true, preserveDrawingBuffer: true }}
+      gl={{ antialias: false, powerPreference: 'high-performance' }}
     >
       <DitheredWaves
         waveSpeed={waveSpeed}
