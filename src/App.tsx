@@ -3,20 +3,38 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import LoadingScreen from "./components/LoadingScreen";
 import CustomCursor from "./components/CustomCursor";
 import { motion, AnimatePresence } from "motion/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import RouteErrorBoundary from "./components/RouteErrorBoundary";
 
-const Home = lazy(() => import("./pages/Home"));
-const CaseStudy = lazy(() => import("./pages/CaseStudy"));
-const Blog = lazy(() => import("./pages/Blog"));
-const BlogPost = lazy(() => import("./pages/BlogPost"));
-const Resume = lazy(() => import("./pages/Resume"));
+const loaders = {
+  home: () => import("./pages/Home"),
+  caseStudy: () => import("./pages/CaseStudy"),
+  blog: () => import("./pages/Blog"),
+  blogPost: () => import("./pages/BlogPost"),
+  resume: () => import("./pages/Resume"),
+};
+const Home = lazy(loaders.home);
+const CaseStudy = lazy(loaders.caseStudy);
+const Blog = lazy(loaders.blog);
+const BlogPost = lazy(loaders.blogPost);
+const Resume = lazy(loaders.resume);
+
+// Start downloading a route's chunk as soon as the pointer is over (or finger is on) a link to it
+const warmRouteFor = (pathname: string) => {
+  if (pathname === "/") loaders.home();
+  else if (pathname.startsWith("/project/")) loaders.caseStudy();
+  else if (pathname === "/blog") loaders.blog();
+  else if (pathname.startsWith("/blog/")) loaders.blogPost();
+  else if (pathname === "/resume") loaders.resume();
+};
 
 // Route chunks are only downloaded when first visited, which (combined with the
 // exit animation) caused a blank/black gap on navigation. Warm them up when idle.
 const prefetchRoutes = () => {
-  import("./pages/Blog");
-  import("./pages/BlogPost");
-  import("./pages/CaseStudy");
-  import("./pages/Resume"); // biggest chunk (react-pdf), fetched last
+  loaders.blog();
+  loaders.blogPost();
+  loaders.caseStudy();
+  loaders.resume(); // biggest chunk (react-pdf), fetched last
 };
 
 export default function App() {
@@ -38,13 +56,34 @@ export default function App() {
     const ric = (window as any).requestIdleCallback as
       | ((cb: () => void, opts?: { timeout: number }) => number)
       | undefined;
-    const id = ric ? ric(prefetchRoutes, { timeout: 4000 }) : window.setTimeout(prefetchRoutes, 2000);
+    const id = ric ? ric(prefetchRoutes, { timeout: 1500 }) : window.setTimeout(prefetchRoutes, 1000);
     return () => {
       const cic = (window as any).cancelIdleCallback as ((n: number) => void) | undefined;
       if (ric && cic) cic(id);
       else window.clearTimeout(id);
     };
   }, [loading]);
+
+  // Warm a route's chunk the moment the user shows intent to go there
+  useEffect(() => {
+    const warm = (e: Event) => {
+      const a = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
+      if (!a || a.origin !== window.location.origin) return;
+      warmRouteFor(a.pathname);
+    };
+    document.addEventListener("pointerover", warm, { passive: true });
+    document.addEventListener("touchstart", warm, { passive: true });
+    return () => {
+      document.removeEventListener("pointerover", warm);
+      document.removeEventListener("touchstart", warm);
+    };
+  }, []);
+
+  // After the new page mounts, let ScrollTrigger re-measure (lazy chunks / WebGL change the layout)
+  useEffect(() => {
+    const id = window.setTimeout(() => ScrollTrigger.refresh(), 250);
+    return () => window.clearTimeout(id);
+  }, [location.pathname]);
 
   // Prevent scrolling while loading
   useEffect(() => {
@@ -91,7 +130,16 @@ export default function App() {
         key="content"
         className="w-full h-full"
       >
-        <AnimatePresence mode="wait">
+        <AnimatePresence
+          mode="wait"
+          onExitComplete={() => {
+            // Drop any pins/triggers the old page left behind before the next page builds its own
+            ScrollTrigger.getAll().forEach((t) => t.kill());
+            document.documentElement.classList.remove("mobile-no-scroll");
+            document.body.classList.remove("mobile-no-scroll");
+            window.scrollTo(0, 0);
+          }}
+        >
           <motion.div
             key={location.pathname}
             initial={{ opacity: 0 }}
@@ -100,6 +148,7 @@ export default function App() {
             className="w-full min-h-screen"
           >
             {fontsLoaded && (
+              <RouteErrorBoundary>
               <Suspense fallback={null}>
                 <Routes location={location}>
                   <Route path="/" element={<Home />} />
@@ -109,6 +158,7 @@ export default function App() {
                   <Route path="/resume" element={<Resume />} />
                 </Routes>
               </Suspense>
+              </RouteErrorBoundary>
             )}
           </motion.div>
         </AnimatePresence>
