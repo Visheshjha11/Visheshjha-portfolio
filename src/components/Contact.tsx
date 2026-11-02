@@ -1,6 +1,7 @@
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Check, Copy } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import EyeFollowButton from "./EyeFollowButton";
 
 const EMAIL = "visheshjha456@gmail.com";
 
@@ -143,14 +144,12 @@ export default function Contact() {
                     className="absolute bottom-0 left-0 h-[3px] w-full origin-left scale-x-0 bg-[#0a0a0a] transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:scale-x-100 group-focus-visible:scale-x-100"
                   />
                 </a>
-                <button
-                  type="button"
+                <EyeFollowButton
+                  label="Copy email"
+                  labelAlt="Copied"
+                  showAlt={copied}
                   onClick={copyEmail}
-                  className="inline-flex items-center gap-2 border border-[#0a0a0a]/40 px-4 py-2 font-header text-[0.6rem] font-bold uppercase tracking-[0.25em] transition-colors hover:bg-[#0a0a0a] hover:text-[#fcfcfb] focus-visible:bg-[#0a0a0a] focus-visible:text-[#fcfcfb] outline-none"
-                >
-                  {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-                  <span role="status" aria-live="polite">{copied ? "Copied" : "Copy email"}</span>
-                </button>
+                />
               </div>
             </motion.div>
           </div>
