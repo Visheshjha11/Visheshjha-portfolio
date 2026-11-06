@@ -5,6 +5,7 @@ import SmoothScroll from "../components/SmoothScroll";
 import ReadingProgress from "../components/ReadingProgress";
 import BlogHeader from "../components/BlogHeader";
 import Contact from "../components/Contact";
+import MediumGate from "../components/MediumGate";
 import { motion } from "motion/react";
 import { BLOG_POSTS } from "../blogdata";
 
@@ -26,13 +27,14 @@ export default function BlogPost() {
   const [headings, setHeadings] = useState<{ id: string; title: string }[]>([]);
 
   const [isTocOpen, setIsTocOpen] = useState(false);
+  const isGated = Boolean(post?.mediumUrl && post?.content);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
 
   useEffect(() => {
-    if (!contentRef.current || !post) return;
+    if (!contentRef.current || !post || isGated) return;
     
     // Extract headings for TOC
     const h2Elements = contentRef.current.querySelectorAll("h2");
@@ -50,7 +52,7 @@ export default function BlogPost() {
     });
     
     setHeadings(extractedHeadings);
-  }, [post]);
+  }, [post, isGated]);
 
   if (!post) {
     return (
@@ -146,11 +148,19 @@ export default function BlogPost() {
               {post.excerpt}
             </p>
             
+            {isGated && post.mediumUrl ? (
+              <MediumGate mediumUrl={post.mediumUrl}>
+                <div ref={contentRef} className="text-base sm:text-lg font-body text-black/80 leading-[1.8] blog-post-content space-y-6">
+                  {post.content}
+                </div>
+              </MediumGate>
+            ) : (
             <div ref={contentRef} className="text-base sm:text-lg font-body text-black/80 leading-[1.8] blog-post-content space-y-6">
-              {post.content ? post.content : (
-                <p>Full content for this post is not available locally.</p>
-              )}
-            </div>
+                {post.content ? post.content : (
+                  <p>Full content for this post is not available locally.</p>
+                )}
+              </div>
+            )}
           </div>
 
           <div className="mt-24 pt-12 border-t border-black/10 flex justify-center">

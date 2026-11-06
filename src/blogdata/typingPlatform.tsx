@@ -9,6 +9,7 @@ export const typingPlatformPost: BlogPostType = {
   tags: ["BUILD IN PUBLIC", "PRODUCTIVITY"],
   link: "/blog/VelocityDev",
   isInternal: true,
+  mediumUrl: "https://medium.com/@visheshjha.in", // TODO: replace with the direct article URL
   coverImage: "/blog/velocity-bw-cover.jpg",
   readTime: "6 min read",
   featured: true,

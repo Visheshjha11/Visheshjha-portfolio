@@ -8,6 +8,8 @@ export interface BlogPostType {
   tags: string[];
   link: string;
   isInternal?: boolean;
+  /** If set, the on-site article is shown as a preview and the rest is gated behind this Medium link. */
+  mediumUrl?: string;
   content?: React.ReactNode;
   coverImage?: string;
   readTime?: string;

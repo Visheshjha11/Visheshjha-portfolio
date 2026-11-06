@@ -9,6 +9,7 @@ export const nvidiaPost: BlogPostType = {
   tags: ["COMPANY PROFILE", "BUSINESS"],
   link: "/blog/nvidia-the-rise-of-an-ai-colossus",
   isInternal: true,
+  mediumUrl: "https://medium.com/@visheshjha.in/nvidia-quietly-became-one-of-the-most-important-companies-in-human-history-6add58b6b280", // TODO: replace with the direct article URL
   coverImage: "/blog/nvidia-bw-cover.jpg",
   readTime: "8 min read",
   featured: true,
